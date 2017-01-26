@@ -1,3 +1,2 @@
 # Ulatwiaczek
-
-## Bo ułatwia ( ͡~ ͜ʖ ͡°)
+Projekt w Pythonie
