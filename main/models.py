@@ -6,11 +6,15 @@ class Przedmiot(models.Model):
 	skrot = models.CharField(max_length = 10)
 	class Meta:
 		db_table = 'Przedmiot'
+	def __str__(self):
+		return self.nazwa
 class Nauczyciel(models.Model):
 	imie = models.CharField(max_length = 50)
 	nazwisko = models.CharField(max_length = 50)
 	class Meta:
 		db_table = 'Nauczyciel'
+	def __str__(self):
+		return self.imie + ' ' + self.nazwisko
 class Test(models.Model):
 	przedmiot = models.ForeignKey(Przedmiot, on_delete = models.CASCADE)
 	ilosc_zadan = models.IntegerField()
@@ -20,13 +24,17 @@ class Test(models.Model):
 	active = models.BooleanField()
 	class Meta:
 		db_table = 'Test'
+	def __str__(self):
+		return self.temat
 class Sprawdzian(models.Model):
 	test = models.ForeignKey(Test, on_delete = models.CASCADE)
 	nauczyciel = models.ForeignKey(Nauczyciel, on_delete = models.CASCADE)
 	ilosc_uczniow = models.IntegerField()
 	data_sprawdzianu = models.DateField()
 	class Meta:
-		db_table = 'Sprawdzian'		
+		db_table = 'Sprawdzian'
+	def __str__(self):
+		return self.temat
 class Zadanie(models.Model):
 	sprawdzian = models.ForeignKey(Sprawdzian, on_delete = models.CASCADE)
 	numer = models.IntegerField()
@@ -34,5 +42,5 @@ class Zadanie(models.Model):
 	maks_ilosc_punktow = models.IntegerField()
 	class Meta:
 		db_table = 'Zadanie'
-
-
+	def __str__(self):
+		return self.sprawdzian + ' zadanie.' + numer
