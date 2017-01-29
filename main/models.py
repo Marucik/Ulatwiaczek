@@ -21,7 +21,7 @@ class Test(models.Model):
 	maks_ilosc_punktow = models.IntegerField()
 	temat = models.CharField(max_length = 50)
 	data_dodania = models.DateField()
-	active = models.BooleanField()
+	aktywny = models.BooleanField(default=True)
 	class Meta:
 		db_table = 'Test'
 	def __str__(self):
@@ -31,6 +31,7 @@ class Sprawdzian(models.Model):
 	nauczyciel = models.ForeignKey(Nauczyciel, on_delete = models.CASCADE)
 	ilosc_uczniow = models.IntegerField()
 	data_sprawdzianu = models.DateField()
+	aktywny = models.BooleanField(default=True)
 	class Meta:
 		db_table = 'Sprawdzian'
 	def __str__(self):
