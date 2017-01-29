@@ -31,6 +31,7 @@ class Sprawdzian(models.Model):
 	nauczyciel = models.ForeignKey(Nauczyciel, on_delete = models.CASCADE)
 	ilosc_uczniow = models.IntegerField()
 	data_sprawdzianu = models.DateField()
+	active = models.BooleanField()
 	class Meta:
 		db_table = 'Sprawdzian'
 	def __str__(self):
