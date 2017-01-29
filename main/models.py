@@ -34,7 +34,7 @@ class Sprawdzian(models.Model):
 	class Meta:
 		db_table = 'Sprawdzian'
 	def __str__(self):
-		return self.temat
+		return str(self.test) + ' przez ' + str(self.nauczyciel)
 class Zadanie(models.Model):
 	sprawdzian = models.ForeignKey(Sprawdzian, on_delete = models.CASCADE)
 	numer = models.IntegerField()
@@ -43,4 +43,4 @@ class Zadanie(models.Model):
 	class Meta:
 		db_table = 'Zadanie'
 	def __str__(self):
-		return self.sprawdzian + ' zadanie.' + numer
+		return str(self.sprawdzian) + ' zadanie numer ' + str(self.numer)
