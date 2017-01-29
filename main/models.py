@@ -21,7 +21,7 @@ class Test(models.Model):
 	maks_ilosc_punktow = models.IntegerField()
 	temat = models.CharField(max_length = 50)
 	data_dodania = models.DateField()
-	active = models.BooleanField()
+	aktywny = models.BooleanField(default=True)
 	class Meta:
 		db_table = 'Test'
 	def __str__(self):
@@ -41,7 +41,6 @@ class Zadanie(models.Model):
 	numer = models.IntegerField()
 	ilosc_punktow_uczniow = models.DecimalField(max_digits = 5, decimal_places = 2)
 	maks_ilosc_punktow = models.IntegerField()
-	aktywny = models.BooleanField(default=True)
 	class Meta:
 		db_table = 'Zadanie'
 	def __str__(self):
