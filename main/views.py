@@ -4,7 +4,10 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("<h1>Hello, world.</h1>")
+    return HttpResponse("<h1>Hello, world. Only 4 peasants!</h1>")
+
+def index_logged(request):
+    return HttpResponse("<h1>Hello, world. Only 4 logged users. Super Secret.</h1>")
 
 def test_dodaj(request):
     return HttpResponse("<h1>Dodawanie testu</h1>")
