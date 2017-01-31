@@ -6,6 +6,7 @@ class Przedmiot(models.Model):
 	skrot = models.CharField(max_length = 10)
 	class Meta:
 		db_table = 'Przedmiot'
+		verbose_name_plural = 'Przedmioty'
 	def __str__(self):
 		return self.nazwa
 class Nauczyciel(models.Model):
@@ -13,6 +14,7 @@ class Nauczyciel(models.Model):
 	nazwisko = models.CharField(max_length = 50)
 	class Meta:
 		db_table = 'Nauczyciel'
+		verbose_name_plural = 'Nauczyciele'
 	def __str__(self):
 		return self.imie + ' ' + self.nazwisko
 class Test(models.Model):
@@ -24,6 +26,7 @@ class Test(models.Model):
 	aktywny = models.BooleanField(default=True)
 	class Meta:
 		db_table = 'Test'
+		verbose_name_plural = 'Testy'
 	def __str__(self):
 		return self.temat
 class Sprawdzian(models.Model):
@@ -34,6 +37,7 @@ class Sprawdzian(models.Model):
 	aktywny = models.BooleanField(default=True)
 	class Meta:
 		db_table = 'Sprawdzian'
+		verbose_name_plural = 'Sprawdziany'
 	def __str__(self):
 		return str(self.test) + ' przez ' + str(self.nauczyciel)
 class Zadanie(models.Model):
@@ -43,5 +47,6 @@ class Zadanie(models.Model):
 	maks_ilosc_punktow = models.IntegerField()
 	class Meta:
 		db_table = 'Zadanie'
+		verbose_name_plural = 'Zadania'
 	def __str__(self):
 		return str(self.sprawdzian) + ' zadanie numer ' + str(self.numer)
