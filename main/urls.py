@@ -7,6 +7,8 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index_logged, name='index_logged'),
 
+    url(r'^logowanie/$', views.logowanie, name="logowanie"),
+
     url(r'^test/$', views.test_lista, name='test_lista'),
     url(r'^test/dodaj/$', views.test_dodaj, name='test_dodaj'),
     url(r'^test/(?P<id>[1-9]+)/$', views.test_szczegoly, name='test_szczegoly'),
