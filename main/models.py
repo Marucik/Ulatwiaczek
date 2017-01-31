@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # heh3szki
 class Przedmiot(models.Model):
@@ -20,8 +21,10 @@ class Test(models.Model):
 	ilosc_zadan = models.IntegerField()
 	maks_ilosc_punktow = models.IntegerField()
 	temat = models.CharField(max_length = 50)
-	data_dodania = models.DateField()
+	data_dodania = models.DateField(default=datetime.date.today())
+	data_edytowania = models.DateField(default=datetime.date.today())
 	aktywny = models.BooleanField(default=True)
+
 	class Meta:
 		db_table = 'Test'
 	def __str__(self):
@@ -31,6 +34,8 @@ class Sprawdzian(models.Model):
 	nauczyciel = models.ForeignKey(Nauczyciel, on_delete = models.CASCADE)
 	ilosc_uczniow = models.IntegerField()
 	data_sprawdzianu = models.DateField()
+	data_dodania = models.DateField(default=datetime.date.today())
+	data_edytowania = models.DateField(default=datetime.date.today())
 	aktywny = models.BooleanField(default=True)
 	class Meta:
 		db_table = 'Sprawdzian'
