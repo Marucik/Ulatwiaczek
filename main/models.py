@@ -26,7 +26,6 @@ class Test(models.Model):
 	data_dodania = models.DateField(default=datetime.date.today())
 	data_edytowania = models.DateField(default=datetime.date.today())
 	aktywny = models.BooleanField(default=True)
-
 	class Meta:
 		db_table = 'Test'
 		verbose_name_plural = 'Testy'

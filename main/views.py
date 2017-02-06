@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
+from main.models import Test
+
 
 def index(request):
     return HttpResponse("<h1>Hello, world. Only 4 peasants!</h1>")
@@ -38,11 +40,11 @@ def test_edytuj(request, id):
 def sprawdzian_dodaj(request):
     return HttpResponse("<h1>Dodawanie sprawdzianu</h1>")
 
-@login_required(login_url='/ulatwiaczek/logowanie/')   
+@login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_lista(request):
     return HttpResponse("<h1>Lista sprawdzianów</h1>")
 
-@login_required(login_url='/ulatwiaczek/logowanie/') 
+@login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_szczegoly(request, id):
 	return HttpResponse("<h1> Szczegoly sprawdzianu numerek %s </h1>" % id)
 
@@ -53,3 +55,7 @@ def sprawdzian_usun(request, id):
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_edytuj(request, id):
 	return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
+
+def testuje(request, id):
+    testy = Test.objects.all()
+    return render(request, 'index.html',  {'testy': testy})
