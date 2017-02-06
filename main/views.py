@@ -57,5 +57,9 @@ def sprawdzian_edytuj(request, id):
 	return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
 
 def testuje(request, id):
-    testy = Test.objects.all()
-    return render(request, 'index.html',  {'testy': testy})
+    test = Test.objects.get(pk=id)
+    ilosc_zadan = test.ilosc_zadan
+    return render(request, 'index.html',  {
+        'test': test,
+        'iloscZadanJakoRange':range(0, ilosc_zadan), 
+    })
