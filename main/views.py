@@ -22,7 +22,11 @@ def test_dodaj(request):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_lista(request):
-    return HttpResponse("<h1>Lista testów</h1>")
+    testy = Test.objects.all()
+    return render(request, 'test/index.html',  {
+        'testy': testy,
+        'iloscTestow': len(testy), 
+    })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_szczegoly(request, id):
