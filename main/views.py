@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
-from main.models import Test
+from main.models import Test, Sprawdzian
 
 
 def index(request):
@@ -30,7 +30,10 @@ def test_lista(request):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_szczegoly(request, id):
-	return HttpResponse("<h1> Szczegoly testu numerek %s </h1>"  % id)
+	test = get_object_or_404(Test, pk=id)
+	return render(request, "test/szczegoly.html", {
+		"test":test
+    })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_usun(request, id):
@@ -50,7 +53,10 @@ def sprawdzian_lista(request):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_szczegoly(request, id):
-	return HttpResponse("<h1> Szczegoly sprawdzianu numerek %s </h1>" % id)
+    sprawdzian = get_object_or_404(Sprawdzian, pk=id)
+    return render(request, "sprawdzian/szczegoly.html", {
+        "sprawdzian" : sprawdzian,
+    })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_usun(request, id):
@@ -60,10 +66,3 @@ def sprawdzian_usun(request, id):
 def sprawdzian_edytuj(request, id):
 	return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
 
-def testuje(request, id):
-    test = Test.objects.get(pk=id)
-    ilosc_zadan = test.ilosc_zadan
-    return render(request, 'index.html',  {
-        'test': test,
-        'iloscZadanJakoRange':range(0, ilosc_zadan), 
-    })
