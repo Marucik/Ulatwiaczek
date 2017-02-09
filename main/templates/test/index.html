@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %} Wybierz test {% endblock %}
+
+{% block content %}
+  {% if testy %}
+    <h3>Znaleziono {{ iloscTestow }} testów</h3>
+    <form class="form-inline" action="">
+      <select class="form-control" name="idTestu" id="">
+        {% for test in testy %}
+            <option value="{{test.id}}">{{ test.temat }}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" value="Utwórz sprawdzian ( ͡° ͜ʖ ͡°)">
+    </form> 
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>ID w bazie</td>
+          <td>Przedmiot</td>
+          <td>Temat</td>
+          <td>Ilość zadań</td>
+          <td>Maksymalna ilość punktów</td>
+          <td>Data dodania</td>
+          <td>Data edytowania</td>
+        </tr>
+      </thead>
+    <tbody>
+      {% for test in testy %}
+        <tr>
+          <td>{{ test.id }}</td>
+          <td>{{ test.przedmiot }}</td>
+          <td>{{ test.temat }}</td>
+          <td>{{ test.ilosc_zadan }}</td>
+          <td>{{ test.maks_ilosc_punktow }}</td>
+          <td>{{ test.data_dodania }}</td>
+          <td>{{ test.data_edytowania }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3>Brak testów do wyświetlenia</h3>
+  {% endif %}
+{% endblock %}
