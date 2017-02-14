@@ -7,7 +7,7 @@ from main.models import Test, Sprawdzian
 
 
 def index(request):
-    return HttpResponse("<h1>Hello, world. Only 4 peasants!</h1>")
+    return render(request, "base.html")
 
 def logowanie(request):
 	return HttpResponse("Logowanie HERE")
@@ -25,7 +25,7 @@ def test_lista(request):
     testy = Test.objects.all()
     return render(request, 'test/index.html',  {
         'testy': testy,
-        'iloscTestow': len(testy), 
+        'iloscTestow': len(testy),
     })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
@@ -65,4 +65,3 @@ def sprawdzian_usun(request, id):
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_edytuj(request, id):
 	return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
-
