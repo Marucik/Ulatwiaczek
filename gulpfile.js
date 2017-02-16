@@ -6,7 +6,7 @@ var gulp = require('gulp'),
    cssmin = require('gulp-cssmin'),
    postcss = require('gulp-postcss'),
    autoprefixer = require('autoprefixer');
-   
+
 gulp.task('sass', function () {
    return gulp.src('sources/style/*.scss')
          .pipe(sass().on('error', sass.logError))
@@ -40,4 +40,9 @@ gulp.task('bootstrap-sass', function () {
 gulp.task('sass:watch', function () {
    gulp.watch('sources/style/*.scss',['sass']);
    gulp.watch('node_modules/bootstrap-sass/assets/stylesheets/**/*.scss',['bootstrap-sass']);
+});
+
+gulp.task('fonts', function() {
+    return gulp.src('node_modules/font-awesome/fonts/*')
+    .pipe(gulp.dest('main/static/fonts'))
 });
