@@ -16,7 +16,7 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 12%;
+  height: 9vh;
   width: 100%;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -58,7 +58,7 @@ header .message {
   flex-basis: 60%;
   background-color: #183450;
   color: white;
-  font-size: 3vw;
+  font-size: 2vw;
   padding-left: 1vw;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
@@ -76,7 +76,7 @@ header .logout {
   flex-basis: 20%;
   background-color: #1c7bb9;
   color: white;
-  font-size: 3vw;
+  font-size: 2vw;
   letter-spacing: 1px;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -91,7 +91,7 @@ header .logout:hover {
 }
 
 main {
-  height: 88vh;
+  height: 91vh;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -129,7 +129,6 @@ main nav ul li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 3vh;
   height: 12vh;
 }
 
@@ -150,6 +149,14 @@ main nav ul li a {
   color: white;
   text-decoration: none;
   font-size: 2vw;
+}
+
+main nav .drop_down {
+  background-color: #183450;
+}
+
+main nav .drop_down:hover {
+  background-color: #072340;
 }
 
 main nav footer {

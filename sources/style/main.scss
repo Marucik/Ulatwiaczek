@@ -15,7 +15,7 @@
 
 header {
 	display: flex;
-	height: 12%;
+	height: 9vh;
 	width: 100%;
 	flex-direction: row;
 
@@ -39,7 +39,7 @@ header {
 		flex-basis: 60%;
 		background-color: #183450;
 		color: white;
-		font-size: 3vw;
+		font-size: 2vw;
 		padding-left: 1vw;
 		justify-content: flex-start;
 		align-items: center;
@@ -50,7 +50,7 @@ header {
 		flex-basis: 20%;
 		background-color: #1c7bb9;
 		color: white;
-		font-size: 3vw;
+		font-size: 2vw;
 		letter-spacing: 1px;
 		justify-content: center;
 		align-items: center;
@@ -62,7 +62,7 @@ header {
 }
 
 main {
-	height:88vh;
+	height:91vh;
 	width: 100%;
 	display: flex;
 
@@ -82,11 +82,11 @@ main {
 
 			li {
 				display: flex;
-				margin-bottom: 3vh;
 				height: 12vh;
 
 			&:hover{
 				background-color: #1c7bb9;
+
 			}
 
 				a {
@@ -100,6 +100,14 @@ main {
 					font-size: 2vw;
 
 				}
+			}
+		}
+
+		.drop_down {
+			background-color: #183450;
+
+			&:hover {
+				background-color: #072340;
 			}
 		}
 
