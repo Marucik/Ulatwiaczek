@@ -1,0 +1,47 @@
+header {
+	display: flex;
+	height: 9vh;
+	width: 100%;
+	flex-direction: row;
+
+	.logo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		flex-basis: 15%;
+		background-color: #1c7bb9;
+
+		img {
+			max-width: 100%;
+	    max-height: 90%;
+			align-self: center;
+		}
+	}
+
+	.message {
+		display: flex;
+		flex-basis: 70%;
+		background-color: #183450;
+		color: white;
+		font-size: 2vw;
+		padding-left: 1vw;
+		justify-content: flex-start;
+		align-items: center;
+	}
+
+	.logout {
+		display: flex;
+		flex-basis: 15%;
+		background-color: #1c7bb9;
+		color: white;
+		font-size: 2vw;
+		letter-spacing: 1px;
+		justify-content: center;
+		align-items: center;
+
+		&:hover{
+			background-color: #e74c3c;
+		}
+	}
+}

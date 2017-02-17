@@ -1,0 +1,25 @@
+.content {
+  height: 100%;
+  flex-basis: 85%;
+  padding: 0 3.5%;
+  background-color: #d9ecf1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+
+
+  .title {
+    height: 11%;
+    padding-left: 1vw;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+  }
+
+  .display {
+    background-color: #f1ecec;
+    border: 1px solid #344c64;
+    margin-bottom: 15px;
+    padding: 1rem;
+  }
+}
