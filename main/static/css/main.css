@@ -38,7 +38,8 @@ header .logo {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: 20%;
+  -ms-flex-preferred-size: 15%;
+  flex-basis: 15%;
   background-color: #1c7bb9;
 }
 
@@ -54,8 +55,8 @@ header .message {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-preferred-size: 60%;
-  flex-basis: 60%;
+  -ms-flex-preferred-size: 70%;
+  flex-basis: 70%;
   background-color: #183450;
   color: white;
   font-size: 2vw;
@@ -72,8 +73,8 @@ header .logout {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-preferred-size: 20%;
-  flex-basis: 20%;
+  -ms-flex-preferred-size: 15%;
+  flex-basis: 15%;
   background-color: #1c7bb9;
   color: white;
   font-size: 2vw;
@@ -107,8 +108,8 @@ main nav {
   -ms-flex-direction: column;
   flex-direction: column;
   height: 100%;
-  -ms-flex-preferred-size: 20%;
-  flex-basis: 20%;
+  -ms-flex-preferred-size: 15%;
+  flex-basis: 15%;
   background-color: #3292d2;
   padding-top: 3vh;
 }
@@ -188,8 +189,8 @@ main nav footer img {
 
 main .content {
   height: 100%;
-  -ms-flex-preferred-size: 80%;
-  flex-basis: 80%;
+  -ms-flex-preferred-size: 85%;
+  flex-basis: 85%;
   padding: 0 3.5%;
   background-color: #d9ecf1;
   overflow-y: scroll;
