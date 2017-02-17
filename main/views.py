@@ -10,7 +10,7 @@ def index(request):
     return render(request, "base.html")
 
 def logowanie(request):
-	return HttpResponse("Logowanie HERE")
+	return render(request, "login.html")
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def index_logged(request):
