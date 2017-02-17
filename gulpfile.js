@@ -8,7 +8,7 @@ var gulp = require('gulp'),
    autoprefixer = require('autoprefixer');
 
 gulp.task('sass', function () {
-   return gulp.src('sources/style/*.scss')
+   return gulp.src('sources/style/main.scss')
          .pipe(sass().on('error', sass.logError))
          .pipe(postcss([ autoprefixer() ]))
 		   .pipe(cssbeautify({
@@ -35,8 +35,20 @@ gulp.task('bootstrap-sass', function () {
          .pipe(rename({suffix: '.min'}))
          .pipe(gulp.dest('main/static/css'));
 });
-
-
+gulp.task('font-awesome', function () {
+   return gulp.src('sources/style/font-awesome.scss')
+         .pipe(sass().on('error', sass.logError))
+         .pipe(postcss([ autoprefixer() ]))
+		   .pipe(cssbeautify({
+            indent: '  ',
+            openbrace: 'end-of-line',
+            autosemicolon: true
+          }))
+         .pipe(gulp.dest('main/static/css'))
+         .pipe(cssmin())
+         .pipe(rename({suffix: '.min'}))
+         .pipe(gulp.dest('main/static/css'));
+});
 gulp.task('sass:watch', function () {
    gulp.watch('sources/style/*.scss',['sass']);
    gulp.watch('node_modules/bootstrap-sass/assets/stylesheets/**/*.scss',['bootstrap-sass']);
