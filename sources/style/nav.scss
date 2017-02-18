@@ -31,12 +31,26 @@ nav {
         text-decoration: none;
         font-size: 1.5vw;
 
+        &:hover {
+          cursor: pointer;
+        }
+
       }
     }
   }
 
-  .drop_down {
+  .drop_down1 {
     background-color: #183450;
+    padding-left: 1.5rem;
+
+    &:hover {
+      background-color: #072340;
+    }
+  }
+
+  .drop_down2 {
+    background-color: #183450;
+    padding-left: 1.5rem;
 
     &:hover {
       background-color: #072340;
