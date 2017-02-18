@@ -1,7 +1,7 @@
 .content {
   height: 100%;
   flex-basis: 85%;
-  padding: 0 3.5%;
+  padding: 0 2.5%;
   background-color: #d9ecf1;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -17,9 +17,8 @@
   }
 
   .display {
-    background-color: #f1ecec;
-    border: 1px solid #344c64;
+
     margin-bottom: 15px;
-    padding: 1rem;
+    padding-top: 10px;
   }
 }

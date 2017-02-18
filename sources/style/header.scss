@@ -33,15 +33,26 @@ header {
 	.logout {
 		display: flex;
 		flex-basis: 15%;
-		background-color: #1c7bb9;
-		color: white;
-		font-size: 2vw;
-		letter-spacing: 1px;
-		justify-content: center;
-		align-items: center;
 
-		&:hover{
-			background-color: #e74c3c;
+		a {
+			display: flex;
+			height: 100%;
+			width: 100%;
+			background-color: #1c7bb9;
+			color: white;
+			font-size: 2vw;
+			letter-spacing: 1px;
+			justify-content: center;
+			align-items: center;
+			text-decoration: none;
+
+			&:hover {
+				background-color: #e74c3c;
+			}
+
+			&:visited {
+				color: white;
+			}
 		}
 	}
 }

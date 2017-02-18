@@ -18,6 +18,10 @@
 }
 
 form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 200px;
   margin-top: 10vh;
   color: white;
 
