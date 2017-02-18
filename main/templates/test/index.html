@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %} Wybierz test {% endblock %}
-
+{% block userName %} {{ user.first_name }} {% endblock %}
 {% block content %}
   {% if testy %}
     <h3>Znaleziono {{ iloscTestow }} testów</h3>
