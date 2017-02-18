@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from main.models import Test, Sprawdzian
 
 
@@ -10,7 +11,21 @@ def index(request):
     return render(request, "base.html")
 
 def logowanie(request):
-	return render(request, "login.html")
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('test_lista')
+        else:
+            return HttpResponse("Nie znaleziono lub nieprawidłowe dane")
+    else: 
+        return render(request, 'login.html')
+
+def wylogowanie(request):
+    logout(request)
+    return redirect('logowanie')
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def index_logged(request):
@@ -30,18 +45,18 @@ def test_lista(request):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_szczegoly(request, id):
-	test = get_object_or_404(Test, pk=id)
-	return render(request, "test/szczegoly.html", {
-		"test":test
+    test = get_object_or_404(Test, pk=id)
+    return render(request, "test/szczegoly.html", {
+        "test":test
     })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_usun(request, id):
-	return HttpResponse("<h1> Usuwanko testu numerek %s </h1>" % id)
+    return HttpResponse("<h1> Usuwanko testu numerek %s </h1>" % id)
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_edytuj(request, id):
-	return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
+    return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_dodaj(request):
@@ -60,8 +75,8 @@ def sprawdzian_szczegoly(request, id):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_usun(request, id):
-	return HttpResponse("<h1> Usuwanko sprawdzianu numerek %s </h1>" % id)
+    return HttpResponse("<h1> Usuwanko sprawdzianu numerek %s </h1>" % id)
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_edytuj(request, id):
-	return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
+    return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
