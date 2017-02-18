@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% block title %}Ulatwiaczek{% endblock %}</title>
+  <title>{% block title %} Ulatwiaczek {% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
@@ -14,8 +14,8 @@
   <div class="container">
     <header>
       <div class="logo"><img src="{% static 'images/logo.png' %}" alt="Logo"></div>
-      <div class="message">Witaj, {% block name %}użytkowniku{% endblock %}!</div>
-      <div class="logout">Wyloguj</div>
+      <div class="message">Witaj, {% block userName %} użytkowniku {% endblock %}!</div>
+      <div class="logout"><a href="{% url 'wylogowanie' %}">Wyloguj</a></div>
     </header>
     <main>
       <nav>
