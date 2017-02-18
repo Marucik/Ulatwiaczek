@@ -1,8 +1,8 @@
 main {
+	display: flex;
 	height:91vh;
 	width: 100%;
-	display: flex;
 
 	@import "nav";
-  @import "content";	
+  @import "content";
 }

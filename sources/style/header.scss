@@ -1,33 +1,33 @@
 header {
 	display: flex;
+	flex-direction: row;
 	height: 9vh;
 	width: 100%;
-	flex-direction: row;
 
 	.logo {
 		display: flex;
-		align-items: center;
-		justify-content: center;
 		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		flex-basis: 15%;
 		background-color: #1c7bb9;
 
 		img {
+			align-self: center;
 			max-width: 100%;
 	    max-height: 90%;
-			align-self: center;
 		}
 	}
 
 	.message {
 		display: flex;
-		flex-basis: 70%;
-		background-color: #183450;
-		color: white;
-		font-size: 2vw;
-		padding-left: 1vw;
 		justify-content: flex-start;
 		align-items: center;
+		flex-basis: 70%;
+		font-size: 2vw;
+		padding-left: 1vw;
+		background-color: #183450;
+		color: white;
 	}
 
 	.logout {
@@ -36,15 +36,15 @@ header {
 
 		a {
 			display: flex;
-			height: 100%;
-			width: 100%;
-			background-color: #1c7bb9;
-			color: white;
-			font-size: 2vw;
-			letter-spacing: 1px;
 			justify-content: center;
 			align-items: center;
+			height: 100%;
+			width: 100%;
+			font-size: 2vw;
+			letter-spacing: 1px;
 			text-decoration: none;
+			background-color: #1c7bb9;
+			color: white;
 
 			&:hover {
 				background-color: #e74c3c;

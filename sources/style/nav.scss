@@ -1,16 +1,16 @@
 nav {
   display: flex;
   flex-direction: column;
-  height: 100%;
   flex-basis: 15%;
+  height: 100%;
+  padding-top: 1.5%;
   background-color: #3292d2;
-  padding-top: 3vh;
 
   ul {
-    height: 90%;
-    width: 100%;
     display: flex;
     flex-direction: column;
+    height: 90%;
+    width: 100%;
 
     li {
       display: flex;
@@ -18,58 +18,54 @@ nav {
 
     &:hover{
       background-color: #1c7bb9;
-
     }
 
       a {
         display: flex;
+        align-items: center;
         height: 100%;
         width: 100%;
-        padding-left: 1rem;
-        align-items: center;
-        color: white;
-        text-decoration: none;
+        padding-left: 16px;
         font-size: 1.5vw;
+        text-decoration: none;
+        color: white;
 
         &:hover {
           cursor: pointer;
         }
-
       }
     }
   }
 
-  .drop_down1 {
-    background-color: #183450;
-    padding-left: 1.5rem;
+  .drop_down {
+    display: none;
+    height: 12vh;
 
-    &:hover {
-      background-color: #072340;
-    }
-  }
+    li {
+      display: flex;
+      height: 12vh;
+      padding-left: 24px;
+      background-color: #183450;
 
-  .drop_down2 {
-    background-color: #183450;
-    padding-left: 1.5rem;
-
-    &:hover {
-      background-color: #072340;
+      &:hover {
+        background-color: #072340;
+      }
     }
   }
 
   footer {
     display: flex;
-    align-self: flex-end;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    align-self: flex-end;
     width: 100%;
     height: 10%;
 
     img {
+      justify-content: center;
+      align-items: center;
       max-width: 90%;
       max-height: 100%;
-      align-items: center;
-      justify-content: center;
     }
   }
 }
