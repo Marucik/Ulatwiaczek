@@ -1,28 +1,19 @@
 var przyciski = document.getElementsByClassName('button'),
-    drop1 = document.getElementsByClassName('drop_down1'),
-    drop2 = document.getElementsByClassName('drop_down2'),
-    drops = [drop1, drop2],
-    checker = [true, true];
+    drops = document.getElementsByClassName('drop_down'),
+    visible = [false, false];
 
 function clicker(x) {
-  if (checker[x] === true){
-    for (var i = 0; i < drops[x].length; i++) {
-      drops[x][i].style.display = "none";
-    }
-    checker[x] = false;
+  if (visible[x] === false){
+    drops[x].style.display = "flex";
+    visible[x] = true;
   }else {
-      for (var i = 0; i < drops[x].length; i++) {
-        drops[x][i].style.display = "flex";
-    }
-    checker[x] = true;
+    drops[x].style.display = "none";
+    visible[x] = false;
   }
 }
 
-clicker(0);
-clicker(1);
-
 przyciski[0].addEventListener("click", function(){
-  if(checker[1] === true){
+  if(visible[1] === true){
     clicker(0);
     clicker(1);
   }else {
@@ -31,7 +22,7 @@ przyciski[0].addEventListener("click", function(){
 });
 
 przyciski[1].addEventListener("click", function(){
-  if(checker[0] === true){
+  if(visible[0] === true){
     clicker(1);
     clicker(0);
   }else {
