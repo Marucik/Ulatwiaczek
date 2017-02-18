@@ -14,8 +14,8 @@
   <img src="{% static 'images/napis.png' %}" alt="">
   <form class="login" method="post" action="{% url 'logowanie' %}">
     {% csrf_token %}
-    <input type="text" name="username" placeholder="Login:"><br><br>
-    <input type="password" name="password" placeholder="Hasło:"><br><br>
+    <input type="text" name="username" placeholder="Login:" required autofocus><br><br>
+    <input type="password" name="password" placeholder="Hasło:" required><br><br>
     <input class="button" type="submit" value="Zaloguj">
   </form>
 </div>
