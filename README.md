@@ -28,4 +28,17 @@
 			
     4. Następnie instalujemy Python'ową paczkę, która zawiera między innymi [Django](https://www.djangoproject.com/ "Strona Django"), na którym oparty jest nasz projekt.</br>
     Paczkę instalujemy poleceniem `pip install -r requirements.txt`. Po skończeniu pobierania sprawdzamy czy Django zainstalował się poprawnie poleceniem `python -m django --version`</br></br>
-			![Sprawdzanie wersji Django](http://i.imgur.com/yDD5C37.png)
+		![Sprawdzanie wersji Django](http://i.imgur.com/yDD5C37.png)
+	5. Teraz instalujemy [Gulp](http://gulpjs.com/ "Strana Gulp'a")'a i potrzebne do jego działania moduły.</br>
+	Będąc w głównym folderze projektu wpisujemy w konsolę: `npm install`. NodePackageManager automatycznie zainstaluje za nas potrzebne moduły które są zawarde w pliku `package.json`.
+	6. Po instalacji modułów `npm` w konsolę wpisujemy komendę: `gulp compile_css`.</br>
+	Powinniśmy ujrzeć taki widok:</br>      
+      ![Kompilowanie plików scss](http://i.imgur.com/dRAfQxz.png)
+4. Uruchomienie serwera i dodawanie danych:</br>
+Po wykonaniu poprzednich kroków, wreszcie możemy uruchomić naszą aplikację na lokalnym serwerze! Żeby to zrobić, wykonujemy następujące kroki: 
+	1. W konsoli [w której mamy uruchomione wirtualne środowisko!] otwartej w głównym folderze projektu (poznamy go po pliku `manage.py`) wpisujemy komendę: `python manage.py runserver`</br>
+	Powinniśmy zobaczyć coś takiego:</br>
+		![Uruchomiony serwer](http://i.imgur.com/eZjIvZu.png)
+	2. Uruchamiamy przeglądarkę i wpisujemy adres: `127.0.0.1:8000`. Powinna nam się pokazać strona Ułatwiaczka.
+	
+
