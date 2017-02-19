@@ -1,6 +1,6 @@
-# Ułatwiaczek 
----
-## Uruchamianie aplikacji na komputerze lokalnym:
+# Ułatwiaczek </br>Bo ułatwia / jasne jak słońce! [ ͡° ͜ʖ ͡°]
+
+### Uruchamianie aplikacji na komputerze lokalnym:
 
 Żeby uruchomić Ułatwiaczka lokalnie, musimy wykonać następujące kroki:
 
