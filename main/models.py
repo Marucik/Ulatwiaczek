@@ -46,7 +46,7 @@ class Sprawdzian(models.Model):
         db_table = 'Sprawdzian'
         verbose_name_plural = 'Sprawdziany'
     def __str__(self):
-        return str(self.test) + ' przez ' + str(self.nauczyciel)
+        return str(self.test) + ' przez ' + str(self.autor)
 class Zadanie(models.Model):
     sprawdzian = models.ForeignKey(Sprawdzian, on_delete=models.CASCADE)
     numer = models.IntegerField()
