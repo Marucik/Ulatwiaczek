@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Marucik/Ulatwiaczek#readme",
   "devDependencies": {
     "autoprefixer": "^6.7.2",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-v4-dev": "^4.0.0-alpha.5",
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-cssbeautify": "^0.1.3",

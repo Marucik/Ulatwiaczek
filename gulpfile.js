@@ -22,7 +22,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('main/static/css'));
 });
 gulp.task('bootstrap-sass', function () {
-  return gulp.src('node_modules/bootstrap-sass/assets/stylesheets/**/*.scss')
+  return gulp.src('node_modules/bootstrap-v4-dev/scss/bootstrap.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([ autoprefixer() ]))
     .pipe(cssbeautify({
