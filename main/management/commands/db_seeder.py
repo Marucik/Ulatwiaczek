@@ -12,15 +12,15 @@ class Command(BaseCommand):
         parser.add_argument('count', nargs='+', type=int)
 
     def handle(self, *args, **options):
-    	number = options['count'][0]
-    	fake = Factory.create('pl_PL')
-       	for i in range(number):
-    		nauczyciel = Nauczyciel(None, fake.first_name().encode('ascii','ignore'), fake.last_name().encode('ascii','ignore'))
-    		nauczyciel.save()
+        number = options['count'][0]
+        fake = Factory.create('pl_PL')
+        for i in range(number):
+            nauczyciel = Nauczyciel(None, fake.first_name().encode('ascii','ignore'), fake.last_name().encode('ascii','ignore'))
+            nauczyciel.save()
 
-    		nazwaPrzedmiotu = fake.job().encode('ascii','ignore')
-    		przedmiot = Przedmiot(None, nazwaPrzedmiotu, nazwaPrzedmiotu[0:3])
-    		przedmiot.save()
+            nazwaPrzedmiotu = fake.job().encode('ascii','ignore')
+            przedmiot = Przedmiot(None, nazwaPrzedmiotu, nazwaPrzedmiotu[0:3])
+            przedmiot.save()
         
-        	test = Test(None, random.randint(1, Przedmiot.objects.all().count()), random.randint(5, 15), random.randint(20, 40),fake.sentence(nb_words=6, variable_nb_words=True) ,datetime.date.today(), datetime.date.today(), True)
-        	test.save()
+            test = Test(None, random.randint(1, Przedmiot.objects.all().count()), random.randint(5, 15), random.randint(20, 40),fake.sentence(nb_words=6, variable_nb_words=True) ,datetime.date.today(), datetime.date.today(), True)
+            test.save()
