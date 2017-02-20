@@ -23,7 +23,7 @@
     <main>
   <nav>
     <ul>
-      <li id="stronaGlowna"><a href="#"><span class="ikona"><i class="fa fa-bars" aria-hidden="true"></i></span> Strona główna</a></li>
+      <li id="stronaGlowna"><a href="{% url 'index_logged'%}"><span class="ikona"><i class="fa fa-bars" aria-hidden="true"></i></span> Strona główna</a></li>
       <li id="profil"><a href="#"><span class="ikona"><i class="fa fa-user-o" aria-hidden="true"></i></span> Profil</a></li>
       <li id="testy">
         <a class="dropdownButton" href="#">
@@ -31,8 +31,8 @@
           <span class="rozwin"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
         </a>
         <ol>
-          <li id="testyDodaj"><a href="#testdodaj"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li>
-          <li id="testyLista"><a href="#"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li>
+          <li id="testyDodaj"><a href="{% url 'test_dodaj' %}"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li>
+          <li id="testyLista"><a href="{% url 'test_lista' %}"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li>
         </ol>
       </li>
       <li id="sprawdziany">
@@ -41,7 +41,7 @@
           <span class="rozwin"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
         </a>
         <ol>
-          <li id="sprawdzianyDodaj"><a href="#sprdodaj"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li>
+          <li id="sprawdzianyDodaj"><a href="#"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li>
           <li id="sprawdzianyLista"><a href="#"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li>
         </ol>
       </li>
