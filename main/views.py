@@ -3,7 +3,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from main.models import Test, Sprawdzian
+from main.models import Test, Sprawdzian, Przedmiot
+from django.contrib.auth.models import User
+import datetime
 
 
 def index(request):
@@ -32,14 +34,40 @@ def index_logged(request):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_dodaj(request):
-    return HttpResponse("<h1>Dodawanie testu</h1>")
+    przedmioty = Przedmiot.objects.all()
+    if request.method == 'POST':
+        przedmiot = request.POST['idPrzedmiotu']
+        autor = request.user.id
+        ilosc_zadan = request.POST['ilosc_zadan']
+        maks_ilosc_punktow = request.POST['maks_ilosc_punktow']
+        temat = str(request.POST['temat'])
+        data_dodania = datetime.date.today()
+        data_edytowania = datetime.date.today()
+        aktywny = True
+        nowyTest = Test(None, przedmiot, autor, ilosc_zadan, maks_ilosc_punktow, temat, data_dodania, data_edytowania, aktywny)
+        try:
+            nowyTest.save()
+        except:
+            return render(request, 'test/dodaj.html', {
+                'przedmioty': przedmioty,
+                'error':True,
+            })
+        return render(request, 'test/dodaj.html', {
+            'przedmioty': przedmioty,
+        })
+    else:
+        return render(request, 'test/dodaj.html', {
+            'przedmioty': przedmioty,
+        })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_lista(request):
-    testy = Test.objects.all()
-    return render(request, 'test/index.html',  {
+    user = request.user
+    testy = Test.objects.filter(autor=user)
+    return render(request, 'test/index.html', {
         'testy': testy,
         'iloscTestow': len(testy),
+        'uzytkownik': user,
     })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
