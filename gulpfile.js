@@ -8,7 +8,7 @@ var gulp = require('gulp'),
   autoprefixer = require('autoprefixer');
 
 gulp.task('sass', function () {
-  return gulp.src('sources/style/main.scss')
+  return gulp.src('sources/style/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([ autoprefixer() ]))
     .pipe(cssbeautify({
@@ -73,6 +73,6 @@ gulp.task('fonts', function() {
   .pipe(gulp.dest('main/static/fonts'))
 });
 
-gulp.task('compile_css', ['sass', 'sass:login', 'font-awesome'], function () {
+gulp.task('css:compile', ['sass', 'sass:login', 'font-awesome'], function () {
   console.log("Kompiluje pliki scss.");
 });
