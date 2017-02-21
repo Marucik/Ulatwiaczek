@@ -52,13 +52,9 @@ def test_dodaj(request):
                 'przedmioty': przedmioty,
                 'error':True,
             })
-        return render(request, 'test/dodaj.html', {
-            'przedmioty': przedmioty,
-        })
-    else:
-        return render(request, 'test/dodaj.html', {
-            'przedmioty': przedmioty,
-        })
+    return render(request, 'test/dodaj.html', {
+        'przedmioty': przedmioty,
+    })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_lista(request):
