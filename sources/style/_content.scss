@@ -4,18 +4,18 @@
   padding: 0 2.5%;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: #d9ecf1;
+  background-color: lighten($baseBlueLighter, 25%);
 
   .title {
     display: flex;
     align-items: center;
     height: 11%;
-    padding-left: 1vw;
+    padding-left: 1rem;
     font-size: 2rem;
   }
 
   .display {
-    margin-bottom: 15px;
-    padding-top: 10px;
+    margin-bottom: 1rem;
+    padding-top: 0.6rem;
   }
 }

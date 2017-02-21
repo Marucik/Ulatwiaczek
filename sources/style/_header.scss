@@ -10,7 +10,7 @@ header {
 		justify-content: center;
 		align-items: center;
 		flex-basis: 15%;
-		background-color: #1c7bb9;
+		background-color: $baseBlue;
 
 		img {
 			align-self: center;
@@ -26,8 +26,8 @@ header {
 		flex-basis: 70%;
 		font-size: 2vw;
 		padding-left: 1vw;
-		background-color: #183450;
-		color: white;
+		background-color: $baseBlueDarker;
+		color: #fff;
 	}
 
 	.logout {
@@ -43,15 +43,15 @@ header {
 			font-size: 2vw;
 			letter-spacing: 1px;
 			text-decoration: none;
-			background-color: #1c7bb9;
-			color: white;
+			background-color: $baseBlue;
+			color: #fff;
 
 			&:hover {
-				background-color: #e74c3c;
+				background-color: $red;
 			}
 
 			&:visited {
-				color: white;
+				color: #fff;
 			}
 		}
 	}

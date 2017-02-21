@@ -1,47 +1,47 @@
-
 nav {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
   height: 100%;
   flex-basis: 15%;
-  background-color: #3292d2;
+  background-color: $baseBlueLight;
   ul {
+    padding: 1.5rem 0;
     width: 100%;
   }
   .showDropdown {
     display: block;
-  } 
+  }
   ol {
     display: none;
     li {
-      background-color: darken(#1c7bb9, 5%);
+      background-color: $baseBlueDark;
       padding-left: 20px;
       &:hover {
-        background-color: darken(#1c7bb9, 10%);
+        background-color: $baseBlueDarker;
       }
       a {
         padding: 0.5rem 0 0.5rem 1rem;
       }
     }
     li:not(:last-child) {
-      border-bottom: 1px solid darken(#1c7bb9, 7.5%);
+      border-bottom: 1px solid $baseBlueDarker;
     }
   }
   li {
     width: 100%;
     &:hover {
-      background-color: #1c7bb9;
+      background-color: $baseBlue;
     }
     a {
       display: block;
       padding: 1.5rem 0 1.5rem 1rem;
       text-decoration: none;
       font-size: 1.5rem;
-      color: white;
+      color: #fff;
       &:link,
       &:active {
-        color: white;
+        color: #fff;
       }
       &:hover {
         cursor: pointer;
