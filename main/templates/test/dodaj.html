@@ -2,9 +2,14 @@
 {% load static %}
 {% block title %} Dodawanie testu {% endblock %}
 {% block contentTitle %} Dodaj sobie teścik {% endblock %}
+{% block customStyles %} 
+    #testy {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
 {% block content %}
     {% if error %}
-        <h2 style="color: red">Coś poszedło nie tak! </h2>
+        <h2 style="color: red"> Coś poszedło nie tak! </h2>
     {% endif %}
 
     {% if przedmioty %}

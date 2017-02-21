@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %} Wybierz test {% endblock %}
-
+{% block customStyles %} 
+    #testy {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
 {% block content %}
   {% if testy %}
     <h3>Znaleziono {{ iloscTestow }} test/y</h3>
