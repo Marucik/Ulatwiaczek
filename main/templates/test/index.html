@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Wybierz test {% endblock %}
+{% block contentTitle %} Lista wszystkich dodanych testów {% endblock %}
 {% block customStyles %} 
     #testy {
         border-right: 6px solid #e74c3c;
@@ -9,8 +9,7 @@
   {% if testy %}
     <h3>Znaleziono {{ iloscTestow }} test/y</h3>
     <table class="table">
-      <thead>
-        <tr class="bg-primary">
+        <tr>
           <th>ID w bazie</th>
           <th>Przedmiot</th>
           <th>Temat</th>
@@ -18,9 +17,8 @@
           <th>Maksymalna ilość punktów</th>
           <th>Data dodania</th>
           <th>Data edytowania</th>
+          <th>Działania</th>
         </tr>
-      </thead>
-      <tbody>
       {% for test in testy %}
         <tr>
           <td>{{ test.id }}</td>
@@ -30,9 +28,13 @@
           <td>{{ test.maks_ilosc_punktow }}</td>
           <td>{{ test.data_dodania }}</td>
           <td>{{ test.data_edytowania }}</td>
+          <td>
+            <a role="button" href="{% url 'test_szczegoly' id=test.id %}" class="btn btn-info">Szczegóły</a>
+            <a role="button" href="{% url 'test_edytuj' id=test.id %}" class="btn btn-success">Edytuj</a>
+            <a role="button" href="{% url 'test_usun' id=test.id %}" class="btn btn-danger">Usuń</a>
+          </td>
         </tr>
       {% endfor %}
-      </tbody>
     </table>
   {% else %}
     <h3>Brak testów do wyświetlenia</h3>
