@@ -21,8 +21,8 @@ gulp.task('sass', function () {
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('main/static/css'));
 });
-gulp.task('bootstrap-sass', function () {
-  return gulp.src('node_modules/bootstrap-v4-dev/scss/bootstrap.scss')
+gulp.task('bootstrap-v4-dev', function () {
+  return gulp.src('./sources/style/bootstrap-v4-dev/scss/bootstrap.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([ autoprefixer() ]))
     .pipe(cssbeautify({
@@ -65,7 +65,7 @@ gulp.task('sass:login', function () {
 });
 gulp.task('sass:watch', function () {
   gulp.watch('sources/style/*.scss',['sass', 'sass:login']);
-  gulp.watch('node_modules/bootstrap-sass/assets/stylesheets/**/*.scss',['bootstrap-sass']);
+  gulp.watch('./node_modules/bootstrap-v4-dev/scss/**/*',['bootstrap-v4-dev']);
 });
 
 gulp.task('fonts', function() {
@@ -73,6 +73,6 @@ gulp.task('fonts', function() {
   .pipe(gulp.dest('main/static/fonts'))
 });
 
-gulp.task('css:compile', ['sass', 'sass:login', 'font-awesome'], function () {
+gulp.task('css:compile', ['sass', 'sass:login', 'font-awesome', 'bootstrap-v4-dev'], function () {
   console.log("Kompiluje pliki scss.");
 });
