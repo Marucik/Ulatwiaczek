@@ -1,0 +1,14 @@
+table {
+    
+    th {
+        background-color: $baseBlueLight;
+        color: #fff;
+    }
+    td {
+        vertical-align: middle;
+    }
+    td:last-child {
+        display: flex;
+        justify-content: space-around;
+    }
+}
