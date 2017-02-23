@@ -1,16 +1,15 @@
 .content {
   flex-basis: 85%;
   height: 100%;
-  padding: 0 2.5%;
+  padding: 1rem;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: lighten($baseBlueLighter, 25%);
+  background-color: #fff;
 
   .title {
     display: flex;
     align-items: center;
-    height: 11%;
-    padding-left: 1rem;
+    padding: 1.5rem;
     font-size: 2rem;
   }
 
@@ -18,4 +17,5 @@
     margin-bottom: 1rem;
     padding-top: 0.6rem;
   }
+  @import "tables";
 }
