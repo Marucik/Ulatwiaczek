@@ -15,7 +15,7 @@
 //@import "print";
 
 // Core CSS
-//@import "reboot";
+@import "./node_modules/bootstrap-v4-dev/scss/reboot";
 @import "./node_modules/bootstrap-v4-dev/scss/type";
 //@import "images";
 //@import "code";
@@ -29,7 +29,7 @@
 //@import "dropdown";
 @import "./node_modules/bootstrap-v4-dev/scss/button-group";
 //@import "input-group";
-//@import "custom-forms";
+@import "./node_modules/bootstrap-v4-dev/scss/custom-forms";
 //@import "nav";
 //@import "navbar";
 //@import "card";
@@ -40,7 +40,7 @@
 //@import "alert";
 //@import "progress";
 //@import "media";
-//@import "list-group";
+@import "./node_modules/bootstrap-v4-dev/scss/list-group";
 //@import "responsive-embed";
 //@import "close";
 
