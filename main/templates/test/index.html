@@ -36,6 +36,75 @@
         </tr>
       {% endfor %}
     </table>
+    <div aria-label="Page navigation example">
+      <ul class="pagination pagination-lg">
+
+        {% if testy.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?strona=1" aria-label="Pierwsza Strona">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+              <span class="sr-only">Pierwsza</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?strona={{ testy.previous_page_number }}" aria-label="Poprzednia Strona">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+              <span class="sr-only">Poprzednia</span>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="?strona=#" aria-label="Brak wcześniejszych stron">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+              <span class="sr-only">Pierwsza</span>
+            </a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link" href="?strona=#" aria-label="Brak wcześniejszych stron">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+              <span class="sr-only">Poprzednia</span>
+            </a>
+          </li>
+        {% endif %}
+
+        {% for page in testy.paginator.page_range %}
+          {% if page|add:0 == request.GET.strona|add:0 %}
+            <li class="page-item active"><a class="page-link" href="?strona={{page}}">{{page}}</a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?strona={{page}}">{{page}}</a></li>
+          {% endif %}
+        {% endfor %}
+        
+        {% if testy.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?strona={{ testy.next_page_number }}" aria-label="Następna Strona">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+              <span class="sr-only">Następna</span>
+            </a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link" href="?strona={{ testy.paginator.num_pages }}" aria-label="Ostatnia Strona">
+              <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+              <span class="sr-only">Ostatnia</span>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="?strona=#" aria-label="Brak dalszej strony">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li class="page-item disabled">
+            <a class="page-link" href="?strona=#" aria-label="Brak dalszej strony">
+              <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+
+      </ul>
+    </div>
   {% else %}
     <h3>Brak testów do wyświetlenia</h3>
   {% endif %}
