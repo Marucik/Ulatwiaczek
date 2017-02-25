@@ -36,18 +36,19 @@
         </tr>
       {% endfor %}
     </table>
+    {% if testy.paginator.num_pages > 1 %}
     <div aria-label="Page navigation example">
       <ul class="pagination pagination-lg">
 
         {% if testy.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="?strona=1" aria-label="Pierwsza Strona">
+            <a class="page-link" href="?strona=1{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}" aria-label="Pierwsza Strona">
               <i class="fa fa-angle-double-left" aria-hidden="true"></i>
               <span class="sr-only">Pierwsza</span>
-            </a>
+            </a>`
           </li>
           <li class="page-item">
-            <a class="page-link" href="?strona={{ testy.previous_page_number }}" aria-label="Poprzednia Strona">
+            <a class="page-link" href="?strona={{ testy.previous_page_number }}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}" aria-label="Poprzednia Strona">
               <i class="fa fa-angle-left" aria-hidden="true"></i>
               <span class="sr-only">Poprzednia</span>
             </a>
@@ -69,22 +70,22 @@
 
         {% for page in testy.paginator.page_range %}
           {% if page|add:0 == request.GET.strona|add:0 %}
-            <li class="page-item active"><a class="page-link" href="?strona={{page}}">{{page}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?strona={{page}}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}">{{page}}</a></li>
           {% else %}
-            <li class="page-item"><a class="page-link" href="?strona={{page}}">{{page}}</a></li>
+            <li class="page-item"><a class="page-link" href="?strona={{page}}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}">{{page}}</a></li>
           {% endif %}
         {% endfor %}
         
         {% if testy.has_next %}
           <li class="page-item">
-            <a class="page-link" href="?strona={{ testy.next_page_number }}" aria-label="Następna Strona">
+            <a class="page-link" href="?strona={{ testy.next_page_number }}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}" aria-label="Następna Strona">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
               <span class="sr-only">Następna</span>
             </a>
           </li>
 
           <li class="page-item">
-            <a class="page-link" href="?strona={{ testy.paginator.num_pages }}" aria-label="Ostatnia Strona">
+            <a class="page-link" href="?strona={{ testy.paginator.num_pages }}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}" aria-label="Ostatnia Strona">
               <i class="fa fa-angle-double-right" aria-hidden="true"></i>
               <span class="sr-only">Ostatnia</span>
             </a>
@@ -105,6 +106,22 @@
 
       </ul>
     </div>
+    <div>
+      elo
+      <form method="GET" action="">
+        <input type="hidden" name="strona" value="{{ request.GET.strona|add:0 }}">
+        <div class="form-group">
+          <label for="selectCount">Ilość testów na stronę</label>
+          <select class="custom-select" name="ilosc" id="selectCount">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    {% endif %}
   {% else %}
     <h3>Brak testów do wyświetlenia</h3>
   {% endif %}
