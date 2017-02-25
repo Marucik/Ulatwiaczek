@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from main.models import Test, Sprawdzian, Przedmiot
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 
 
@@ -60,10 +61,18 @@ def test_dodaj(request):
 def test_lista(request):
     user = request.user
     testy = Test.objects.filter(autor=user)
+    paginator = Paginator(testy, 10)
+    getPAGE = request.GET.get('strona')
+    try: 
+        tests = paginator.page(getPAGE)
+    except PageNotAnInteger:
+        tests = paginator.page(1)
+    except EmptyPage:
+        tests = paginator.page(paginator.num_pages)
     return render(request, 'test/index.html', {
-        'testy': testy,
+        'testy': tests,
         'iloscTestow': len(testy),
-        'uzytkownik': user,
+        
     })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
