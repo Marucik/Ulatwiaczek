@@ -61,10 +61,16 @@ def test_dodaj(request):
 def test_lista(request):
     user = request.user
     testy = Test.objects.filter(autor=user)
-    paginator = Paginator(testy, 10)
-    getPAGE = request.GET.get('strona')
+    getPage = request.GET.get('strona')
+
+    if(request.GET.get('ilosc')):
+        getObjectsOnPage = request.GET.get('ilosc')
+    else:
+        getObjectsOnPage = 10
+    paginator = Paginator(testy, getObjectsOnPage)
+    
     try: 
-        tests = paginator.page(getPAGE)
+        tests = paginator.page(getPage)
     except PageNotAnInteger:
         tests = paginator.page(1)
     except EmptyPage:
