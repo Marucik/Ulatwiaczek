@@ -1,4 +1,5 @@
 $baseBlue: #1c7bb9;
+$baseBlueBetween: lighten($baseBlue,5%);
 $baseBlueLight: lighten(#1c7bb9, 10%);
 $baseBlueLighter: lighten(#1c7bb9, 25%);
 $baseBlueDark: darken(#1c7bb9, 10%);
