@@ -1,4 +1,4 @@
-nav {
+nav.main {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
@@ -30,7 +30,7 @@ nav {
   li {
     width: 100%;
     &:hover {
-      background-color: $baseBlue;
+      background-color: $baseBlueBetween;
     }
     a {
       display: block;
