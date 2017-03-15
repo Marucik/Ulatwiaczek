@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound, Http404, Http500
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from main.models import Test, Sprawdzian, Przedmiot
@@ -60,15 +60,13 @@ def test_dodaj(request):
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_lista(request):
     user = request.user
-    testy = Test.objects.filter(autor=user)
+    testy = Test.objects.filter(autor=user).exclude(aktywny=False)
     getPage = request.GET.get('strona')
-
-    if(request.GET.get('ilosc')):
+    if request.GET.get('ilosc'):
         getObjectsOnPage = request.GET.get('ilosc')
     else:
         getObjectsOnPage = 10
     paginator = Paginator(testy, getObjectsOnPage)
-    
     try: 
         tests = paginator.page(getPage)
     except PageNotAnInteger:
@@ -83,18 +81,37 @@ def test_lista(request):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_szczegoly(request, id):
-    test = get_object_or_404(Test, pk=id)
+    try:
+        test = Test.objects.filter(autor=request.user).get(pk=id)
+    except Test.DoesNotExist:
+        raise Http404
     return render(request, "test/szczegoly.html", {
         "test":test
     })
 
+
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_usun(request, id):
-    return HttpResponse("<h1> Usuwanko testu numerek %s </h1>" % id)
+    try:
+        test = Test.objects.filter(autor=request.user).get(pk=id)
+    except Test.DoesNotExist:
+        raise Http404
+    test.aktywny = False
+    try:
+        test.save()
+    except:
+        raise Http500
+    finally:
+        return redirect('test_lista')
+
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_edytuj(request, id):
     return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
+    try:
+        test = Test.objects.filter(autor=request.user).get(pk=id)
+    except Test.DoesNotExist:
+        raise Http404
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_dodaj(request):
