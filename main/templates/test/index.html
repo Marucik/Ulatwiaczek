@@ -6,6 +6,7 @@
     }
 {% endblock %}
 {% block content %}
+  <div id="alert"></div>
   {% if testy %}
     <h3>Znaleziono {{ iloscTestow }} test/y</h3>
     <table class="table">
@@ -31,7 +32,7 @@
           <td>
             <a role="button" href="{% url 'test_szczegoly' id=test.id %}" class="btn btn-info">Szczegóły</a>
             <a role="button" href="{% url 'test_edytuj' id=test.id %}" class="btn btn-success">Edytuj</a>
-            <a role="button" href="{% url 'test_usun' id=test.id %}" class="btn btn-danger">Usuń</a>
+            <a role="button" href="#" class="btn btn-danger btn-delete" onclick="return usunTest('{% url 'test_usun' id=test.id %}')">Usuń</a>
           </td>
         </tr>
       {% endfor %}
@@ -42,13 +43,13 @@
 
         {% if testy.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="?strona=1{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}" aria-label="Pierwsza Strona">
+            <a class="page-link" href="?strona=1{% if request.GET.sortowanie %}&sortowanie={{ request.GET.sortowanie }}{% endif %}{% if request.GET.ilosc %}&ilosc={{ request.GET.ilosc|add:0 }}{% endif %}" aria-label="Pierwsza Strona">
               <i class="fa fa-angle-double-left" aria-hidden="true"></i>
               <span class="sr-only">Pierwsza</span>
             </a>`
           </li>
           <li class="page-item">
-            <a class="page-link" href="?strona={{ testy.previous_page_number }}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}" aria-label="Poprzednia Strona">
+            <a class="page-link" href="?strona={{ testy.previous_page_number }}{% if request.GET.sortowanie %}&sortowanie={{ request.GET.sortowanie }}{% endif %}{% if request.GET.ilosc %}&ilosc={{ request.GET.ilosc|add:0 }}{% endif %}" aria-label="Poprzednia Strona">
               <i class="fa fa-angle-left" aria-hidden="true"></i>
               <span class="sr-only">Poprzednia</span>
             </a>
@@ -70,22 +71,25 @@
 
         {% for page in testy.paginator.page_range %}
           {% if page|add:0 == request.GET.strona|add:0 %}
-            <li class="page-item active"><a class="page-link" href="?strona={{page}}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}">{{page}}</a></li>
+            <li class="page-item active"><a class="page-link" href="?strona={{page}}{% if request.GET.sortowanie %}&sortowanie={{ request.GET.sortowanie}}{% endif %}{% if request.GET.ilosc %}&ilosc={{ request.GET.ilosc|add:0 }}{% endif %}">{{page}}</a></li>
+          {% elif page|add:0 == 1 and not request.GET.strona %}
+            <li class="page-item active"><a class="page-link" href="?strona=1{% if request.GET.sortowanie %}&sortowanie={{ request.GET.sortowanie}}{% endif %}{% if request.GET.ilosc %}&ilosc={{ request.GET.ilosc|add:0 }}{% endif %}">{{page}}</a></li>
           {% else %}
-            <li class="page-item"><a class="page-link" href="?strona={{page}}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}">{{page}}</a></li>
+            <li class="page-item"><a class="page-link" href="?strona={{page}}{% if request.GET.sortowanie %}&sortowanie={{ request.GET.sortowanie}}{% endif %}{% if request.GET.ilosc %}&ilosc={{ request.GET.ilosc|add:0 }}{% endif %}">{{page}}</a></li>
           {% endif %}
+
         {% endfor %}
         
         {% if testy.has_next %}
           <li class="page-item">
-            <a class="page-link" href="?strona={{ testy.next_page_number }}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}" aria-label="Następna Strona">
+            <a class="page-link" href="?strona={{ testy.next_page_number }}{% if request.GET.sortowanie %}&sortowanie={{ request.GET.sortowanie }}{% endif %}{% if request.GET.ilosc %}&ilosc={{ request.GET.ilosc|add:0 }}{% endif %}" aria-label="Następna Strona">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
               <span class="sr-only">Następna</span>
             </a>
           </li>
 
           <li class="page-item">
-            <a class="page-link" href="?strona={{ testy.paginator.num_pages }}{% if request.GET.ilosc %}&ilosc={{request.GET.ilosc|add:0}}{% endif %}" aria-label="Ostatnia Strona">
+            <a class="page-link" href="?strona={{ testy.paginator.num_pages }}{% if request.GET.sortowanie %}&sortowanie={{ request.GET.sortowanie }}{% endif %}{% if request.GET.ilosc %}&ilosc={{ request.GET.ilosc|add:0 }}{% endif %}" aria-label="Ostatnia Strona">
               <i class="fa fa-angle-double-right" aria-hidden="true"></i>
               <span class="sr-only">Ostatnia</span>
             </a>
@@ -107,21 +111,57 @@
       </ul>
     </div>
     <div>
-      elo
-      <form method="GET" action="">
+      
+      <form class="form-inline" method="GET" action="">
+        {% if request.GET.strona %}
         <input type="hidden" name="strona" value="{{ request.GET.strona|add:0 }}">
-        <div class="form-group">
-          <label for="selectCount">Ilość testów na stronę</label>
-          <select class="custom-select" name="ilosc" id="selectCount">
-            <option value="5">5</option>
-            <option value="10" selected>10</option>
-            <option value="20">20</option>
-          </select>
-        </div>
-        <input type="submit" value="Submit">
+        {% endif %}
+        {% if request.GET.sortowanie %}
+        <input type="hidden" name="sortowanie" value="{{ request.GET.sortowanie|add:0 }}">
+        {% endif %}
+        {% if request.GET.ilosc %}
+        <input type="hidden" name="ilosc" value="{{ request.GET.ilosc|add:0 }}">
+        {% endif %}
+        <p>Ilośc testów na stronę: </p>
+        <label class="sr-only" for="selectCount">Ilość testów na stronę</label>
+        <select class="custom-select form-control-lg" name="ilosc" id="selectCount">
+          <option selected value="10">Wybierz ilość testów na strone...</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+        <input class="btn btn-primary" type="submit" value="Wyślij">
       </form>
+      
     </div>
     {% endif %}
+    <form class="form-inline" method="GET" action="">
+        {% if request.GET.strona %}
+        <input type="hidden" name="strona" value="{{ request.GET.strona|add:0 }}">
+        {% endif %}
+        {% if request.GET.sortowanie %}
+        <input type="hidden" name="sortowanie" value="{{ request.GET.sortowanie|add:0 }}">
+        {% endif %}
+        {% if request.GET.ilosc %}
+        <input type="hidden" name="ilosc" value="{{ request.GET.ilosc|add:0 }}">
+        {% endif %}
+        <p>Jak chcesz posortować: </p>
+        <label class="sr-only" for="sortBy">Sortuj</label>
+        <select class="custom-select form-control-lg" name="sortowanie" id="sortBy">
+          <option value="-data_dodania" selected>Wybierz opcje sortowania...</option>
+          <option value="ilosc_zadan">Ilość zadań (rosnąco)</option>
+          <option value="-ilosc_zadan">Ilość zadań (malejąco)</option>
+          <option value="maks_ilosc_punktow">Maksymalna ilość punktów (rosnąco)</option>
+          <option value="-maks_ilosc_punktow">Maksymalna ilość punktów (malejąco)</option>
+          <option value="temat">Temat (rosnąco)</option>
+          <option value="-temat">Temat (malejąco)</option>
+          <option value="data_dodania">Data dodania (rosnąco)</option>
+          <option value="-data_dodania">Data dodania (malejąco) </option>
+          <option value="data_edytowania">Data edytowania (rosnąco)</option>
+          <option value="-data_edytowania">Data edytowania (malejąco)</option>
+        </select>
+        <input class="btn btn-primary" type="submit" value="Sortuj">
+      </form>
   {% else %}
     <h3>Brak testów do wyświetlenia</h3>
   {% endif %}
