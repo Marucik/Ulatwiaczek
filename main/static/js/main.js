@@ -1,31 +1,24 @@
-var przyciski = document.getElementsByClassName('button'),
-    drops = document.getElementsByClassName('drop_down'),
-    visible = [false, false];
 
-function clicker(x) {
-  if (visible[x] === false){
-    drops[x].style.display = "flex";
-    visible[x] = true;
-  }else {
-    drops[x].style.display = "none";
-    visible[x] = false;
-  }
-}
 
-przyciski[0].addEventListener("click", function(){
-  if(visible[1] === true){
-    clicker(0);
-    clicker(1);
-  }else {
-    clicker(0);
+  function usunTest(url) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        
+        console.log('zrobilem se zapytanie');
+        var info = JSON.parse(xhttp.responseText);
+        console.log(info);
+        console.log(info.deleted);
+        if(info.deleted === false){
+          document.querySelector('#alert').innerHTML = '<div class="alert alert-danger" role="alert"><strong>Oh water chicken!</strong> Nie udało się!</div>' + xhttp.getResponse;
+        } else {
+          document.querySelector('#alert').innerHTML = '<div class="alert alert-success" role="alert"><strong>Udało się!</strong> Prawidłowo usunięto test o nazwie ' + info.temat + '.</div>';
+        }
+      } else {
+        //document.querySelector('#alert').innerHTML = '<div class="alert alert-danger" role="alert"><strong>Błąd!</strong> Komunikacja z serwerem zasysa!</div>' + xhttp.getResponse;
+        console.log("błąd komunikacji");
+      }
+    };
+    xhttp.open("GET", url + "", true);
+    xhttp.send();
   }
-});
-
-przyciski[1].addEventListener("click", function(){
-  if(visible[0] === true){
-    clicker(1);
-    clicker(0);
-  }else {
-    clicker(1);
-  }
-});
