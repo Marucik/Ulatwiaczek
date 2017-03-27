@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseNotFound, Http404, Http500
+from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from main.models import Test, Sprawdzian, Przedmiot
@@ -62,10 +62,21 @@ def test_lista(request):
     user = request.user
     testy = Test.objects.filter(autor=user).exclude(aktywny=False)
     getPage = request.GET.get('strona')
+    if request.GET.get('strona'):
+        getPage = request.GET.get('strona')
+    else:
+        getPage = 1
+
     if request.GET.get('ilosc'):
         getObjectsOnPage = request.GET.get('ilosc')
     else:
         getObjectsOnPage = 10
+
+    if request.GET.get('sortowanie'):
+        testy = testy.order_by(request.GET.get('sortowanie'))
+    else:
+        testy = testy.order_by('-data_dodania')
+
     paginator = Paginator(testy, getObjectsOnPage)
     try: 
         tests = paginator.page(getPage)
@@ -92,22 +103,30 @@ def test_szczegoly(request, id):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_usun(request, id):
+    deleted = True
     try:
         test = Test.objects.filter(autor=request.user).get(pk=id)
     except Test.DoesNotExist:
-        raise Http404
-    test.aktywny = False
+        #raise Http404
+        deleted = False
+        return JsonResponse({
+            "deleted" : deleted,
+        })
+
     try:
+        test.aktywny = False
         test.save()
     except:
-        raise Http500
-    finally:
-        return redirect('test_lista')
+        deleted = False
+    return JsonResponse({
+        "deleted" : deleted,
+        "temat" : test.temat,
+    })
 
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_edytuj(request, id):
-    return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
+    #return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
     try:
         test = Test.objects.filter(autor=request.user).get(pk=id)
     except Test.DoesNotExist:
@@ -135,3 +154,9 @@ def sprawdzian_usun(request, id):
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def sprawdzian_edytuj(request, id):
     return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
+
+def testowanko(request):
+    return JsonResponse({
+        "deleted": True,
+
+    })
