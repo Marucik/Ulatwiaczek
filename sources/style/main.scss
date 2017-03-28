@@ -15,21 +15,6 @@
 	width: 100vw;
 }
 
-//Nadpisanie zaokrąglania krawędzi przycisków przez Bootstrapa
-.btn {
-	border-radius: 0;
-}
-
-//Nadpisanie zaokrąglania krawędzi selecta przez Bootstrapa
-.custom-select {
-	border-radius: 0;
-}
-
-//Nadpisanie zaokrąglania krawędzi alertu przez Bootstrapa
-.alert {
-	border-radius: 0;
-}
-
 //Nadpisanie podkreślania linków przy :hover i :focus przez Bootstrapa
 a {
 	&:hover, &:focus {
