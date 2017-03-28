@@ -31,8 +31,11 @@
 }
 
 //Nadpisanie podkreślania linków przy :hover i :focus przez Bootstrapa
-a:hover, a:focus {
-	text-decoration: none;
+a {
+	&:hover, &:focus {
+		text-decoration: none;
+		color: #fff;
+	}
 }
 
 @import "header";
