@@ -15,5 +15,9 @@
 	width: 100vw;
 }
 
+//Nadpisanie zaokrąglania krawędzi przycisków przez Bootstrapa
+.btn {
+	border-radius: 0;
+}
 @import "header";
 @import "container";
