@@ -19,5 +19,21 @@
 .btn {
 	border-radius: 0;
 }
+
+//Nadpisanie zaokrąglania krawędzi selecta przez Bootstrapa
+.custom-select {
+	border-radius: 0;
+}
+
+//Nadpisanie zaokrąglania krawędzi alertu przez Bootstrapa
+.alert {
+	border-radius: 0;
+}
+
+//Nadpisanie podkreślania linków przy :hover i :focus przez Bootstrapa
+a:hover, a:focus {
+	text-decoration: none;
+}
+
 @import "header";
 @import "container";
