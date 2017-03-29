@@ -22,7 +22,7 @@ def logowanie(request):
             return redirect('test_lista')
         else:
             return HttpResponse("Nie znaleziono lub nieprawidłowe dane")
-    else: 
+    else:
         return render(request, 'login.html')
 
 def wylogowanie(request):
@@ -78,7 +78,7 @@ def test_lista(request):
         testy = testy.order_by('-data_dodania')
 
     paginator = Paginator(testy, getObjectsOnPage)
-    try: 
+    try:
         tests = paginator.page(getPage)
     except PageNotAnInteger:
         tests = paginator.page(1)
@@ -87,7 +87,7 @@ def test_lista(request):
     return render(request, 'test/index.html', {
         'testy': tests,
         'iloscTestow': len(testy),
-        
+
     })
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
@@ -159,4 +159,12 @@ def testowanko(request):
     return JsonResponse({
         "deleted": True,
 
+    })
+
+def stats(request):
+    testy = Test.objects.all()
+    przedmioty = Przedmiot.objects.all()
+    return render(request, "stats.html", {
+        'iloscTestow': len(testy),
+        'iloscPrzedmiotow': len(przedmioty),
     })
