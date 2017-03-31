@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
+from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from main.models import Test, Sprawdzian, Przedmiot
@@ -9,8 +9,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 
 
+
+@login_required(login_url='/ulatwiaczek/logowanie/')
 def index(request):
     return render(request, "base.html")
+
+def redirect(request):
+    return HttpResponseRedirect('/ulatwiaczek/')
 
 def logowanie(request):
     if request.method == 'POST':
