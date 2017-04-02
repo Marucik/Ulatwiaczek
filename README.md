@@ -21,24 +21,24 @@
       ![Wersja virtualenv](http://i.imgur.com/2PFUcnL.png)
     3. Tworzymy wirtualne środowisko i aktywujemy go:
     
-        virtualenv virtualenv
-        source virtualenv/bin/activate
+        `virtualenv virtualenv`
+        W przypadku Linuxa: `source virtualenv/bin/activate`
+	W przypadku Windowsa: `virtualenv\Scripts\activate`
 	
-	(W Windows używamy backslashy)
 
-    3. Możemy teraz uruchomić wirtualne środowisko przygotowane dla Ułatwiaczka.</br>
+    4. Możemy teraz uruchomić wirtualne środowisko przygotowane dla Ułatwiaczka.</br>
     Żeby "wejść" do tego środowiska wpisujemy w konsolę (będąc w głównym folderze projektu): `virtualenv\Scripts\activate`.</br>
 		Po wykonaniu tej komendy nasza konsola powinna wyglądać następująco:</br>		
     	![Wejscie do virtualenv](http://i.imgur.com/6TiPhxi.png)
 
     	Należy pamiętać, że musimy wejść do naszego wirtualnego środowiska za każdym razem jeżeli chcemy uruchomić naszą aplikację lokalnie ( ͡^ ͜ʖ ͡^).
 
-    4. Następnie instalujemy Python'ową paczkę, która zawiera między innymi [Django](https://www.djangoproject.com/ "Strona Django"), na którym oparty jest nasz projekt.</br>
+    5. Następnie instalujemy Python'ową paczkę, która zawiera między innymi [Django](https://www.djangoproject.com/ "Strona Django"), na którym oparty jest nasz projekt.</br>
     Paczkę instalujemy poleceniem `pip install -r requirements.txt`. Po skończeniu pobierania sprawdzamy czy Django zainstalował się poprawnie poleceniem `python -m django --version`</br></br>
 		![Sprawdzanie wersji Django](http://i.imgur.com/yDD5C37.png)
-    5. Teraz instalujemy [Gulp](http://gulpjs.com/ "Strana Gulp'a")'a i potrzebne do jego działania moduły.</br>
+    6. Teraz instalujemy [Gulp](http://gulpjs.com/ "Strana Gulp'a")'a i potrzebne do jego działania moduły.</br>
   	Będąc w głównym folderze projektu wpisujemy w konsolę: `npm install`. NodePackageManager automatycznie zainstaluje za nas potrzebne moduły które są zawarde w pliku `package.json`.
-    6. Po instalacji modułów `npm` w konsolę wpisujemy komendę: `gulp compile_css`.</br>
+    7. Po instalacji modułów `npm` w konsolę wpisujemy komendę: `gulp compile_css`.</br>
   	Powinniśmy ujrzeć taki widok:</br>      
         ![Kompilowanie plików scss](http://i.imgur.com/dRAfQxz.png)
 4. Uruchomienie serwera i dodawanie danych:</br>
