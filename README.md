@@ -19,6 +19,13 @@
       ![System plików](http://i.imgur.com/aZC3dvA.png)
     2. Wpisujemy komendę `pip install virtualenv`. </br>Po zakończeniu instalacji sprawdzamy czy wszystko zainstalowało się poprawnie komendą `virtualenv --version`;</br>		
       ![Wersja virtualenv](http://i.imgur.com/2PFUcnL.png)
+    3. Tworzymy wirtualne środowisko i aktywujemy go:
+    
+        virtualenv virtualenv
+        source virtualenv/bin/activate
+	
+	(W Windows używamy backslashy)
+
     3. Możemy teraz uruchomić wirtualne środowisko przygotowane dla Ułatwiaczka.</br>
     Żeby "wejść" do tego środowiska wpisujemy w konsolę (będąc w głównym folderze projektu): `virtualenv\Scripts\activate`.</br>
 		Po wykonaniu tej komendy nasza konsola powinna wyglądać następująco:</br>		
