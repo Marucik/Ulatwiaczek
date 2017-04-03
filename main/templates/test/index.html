@@ -112,40 +112,14 @@
     </div>
     <div>
       
-      <form class="form-inline" method="GET" action="">
-        {% if request.GET.strona %}
-        <input type="hidden" name="strona" value="{{ request.GET.strona|add:0 }}">
-        {% endif %}
-        {% if request.GET.sortowanie %}
-        <input type="hidden" name="sortowanie" value="{{ request.GET.sortowanie|add:0 }}">
-        {% endif %}
-        {% if request.GET.ilosc %}
-        <input type="hidden" name="ilosc" value="{{ request.GET.ilosc|add:0 }}">
-        {% endif %}
-        <p>Ilośc testów na stronę: </p>
+      <form class="form-inline" method="GET" action="{% url 'test_lista' %}">
         <label class="sr-only" for="selectCount">Ilość testów na stronę</label>
         <select class="custom-select form-control-lg" name="ilosc" id="selectCount">
           <option selected value="10">Wybierz ilość testów na strone...</option>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
+          <option {% if request.GET.ilosc|add:0 == 5 %} selected {% endif %} value="5">5</option>
+          <option {% if request.GET.ilosc|add:0 == 10 %} selected {% endif %} value="10">10</option>
+          <option {% if request.GET.ilosc|add:0 == 20 %} selected {% endif %} value="20">20</option>
         </select>
-        <input class="btn btn-primary" type="submit" value="Wyślij">
-      </form>
-      
-    </div>
-    {% endif %}
-    <form class="form-inline" method="GET" action="">
-        {% if request.GET.strona %}
-        <input type="hidden" name="strona" value="{{ request.GET.strona|add:0 }}">
-        {% endif %}
-        {% if request.GET.sortowanie %}
-        <input type="hidden" name="sortowanie" value="{{ request.GET.sortowanie|add:0 }}">
-        {% endif %}
-        {% if request.GET.ilosc %}
-        <input type="hidden" name="ilosc" value="{{ request.GET.ilosc|add:0 }}">
-        {% endif %}
-        <p>Jak chcesz posortować: </p>
         <label class="sr-only" for="sortBy">Sortuj</label>
         <select class="custom-select form-control-lg" name="sortowanie" id="sortBy">
           <option value="-data_dodania" selected>Wybierz opcje sortowania...</option>
@@ -160,8 +134,10 @@
           <option value="data_edytowania">Data edytowania (rosnąco)</option>
           <option value="-data_edytowania">Data edytowania (malejąco)</option>
         </select>
-        <input class="btn btn-primary" type="submit" value="Sortuj">
+        <input class="btn btn-primary btn-lg" type="submit" value="Wyślij!">
       </form>
+    </div>
+    {% endif %}
   {% else %}
     <h3>Brak testów do wyświetlenia</h3>
   {% endif %}
