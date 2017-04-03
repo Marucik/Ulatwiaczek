@@ -37,7 +37,7 @@
 		![Sprawdzanie wersji Django](http://i.imgur.com/yDD5C37.png)
     6. Teraz instalujemy [Gulp](http://gulpjs.com/ "Strana Gulp'a")'a i potrzebne do jego działania moduły.</br>
   	Będąc w głównym folderze projektu wpisujemy w konsolę: `npm install`. NodePackageManager automatycznie zainstaluje za nas potrzebne moduły które są zawarde w pliku `package.json`.
-    7. Po instalacji modułów `npm` w konsolę wpisujemy komendę: `gulp compile_css`.</br>
+    7. Po instalacji modułów `npm` w konsolę wpisujemy komendę: `gulp css:compile`.</br>
   	Powinniśmy ujrzeć taki widok:</br>      
         ![Kompilowanie plików scss](http://i.imgur.com/dRAfQxz.png)
 4. Uruchomienie serwera i dodawanie danych:</br>
