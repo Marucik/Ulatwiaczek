@@ -7,15 +7,12 @@ from main.models import Test, Sprawdzian, Przedmiot
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
-
+from django.core.exceptions import FieldError
 
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def index(request):
     return render(request, "base.html")
-
-def redirect(request):
-    return HttpResponseRedirect('/ulatwiaczek/')
 
 def logowanie(request):
     if request.method == 'POST':
@@ -33,10 +30,6 @@ def logowanie(request):
 def wylogowanie(request):
     logout(request)
     return redirect('logowanie')
-
-@login_required(login_url='/ulatwiaczek/logowanie/')
-def index_logged(request):
-    return HttpResponse("<h1>Hello, world. Only 4 logged users. Super Secret.</h1>")
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_dodaj(request):
@@ -66,29 +59,49 @@ def test_dodaj(request):
 def test_lista(request):
     user = request.user
     testy = Test.objects.filter(autor=user).exclude(aktywny=False)
-    getPage = request.GET.get('strona')
-    if request.GET.get('strona'):
-        getPage = request.GET.get('strona')
-    else:
-        getPage = 1
 
-    if request.GET.get('ilosc'):
-        getObjectsOnPage = request.GET.get('ilosc')
-    else:
+    """
+    próbuje pobrać ilość wyświetlanych testów na stronę (metodą GET)
+    jeśli się nie powiedzie (użytkownik wpisze np. literę)
+    zostanie wyświetlona domyślna ilość czyli 10 testów na jedną stronę
+    """
+    try:
+        getObjectsOnPage = int(request.GET.get('ilosc'))
+    except:
         getObjectsOnPage = 10
 
-    if request.GET.get('sortowanie'):
+    """
+    próbuje pobrać typ sortowania listy (metodą GET)
+    jeśli się nie powiedzie (użytkownik wpisze metodę sortowania która nie istnieje)
+    lista zostanie posortowana domyślnie (czyli datą - od najnowszych testów do najstarszych)
+    """
+    """
+    do poprawy (nie wymusza sortowania datą dodania gdy metoda sortowania podana w parametrze GET nie istnieje)
+    """
+    try:
         testy = testy.order_by(request.GET.get('sortowanie'))
-    else:
-        testy = testy.order_by('-data_dodania')
+    except: 
+        testy = testy.order_by('data_dodania')
 
+    """
+    próbuje pobrać która strona ma być aktualnie wyświetlana (metodą GET)
+    jeśli się nie powiedzie, do zmiennej przypisywana jest pierwsza strona
+    """
+    try:
+        getPage = int(request.GET.get('strona'))
+    except:
+        getPage = 1
+
+    #tworzy paginację listy testów
     paginator = Paginator(testy, getObjectsOnPage)
+
     try:
         tests = paginator.page(getPage)
-    except PageNotAnInteger:
-        tests = paginator.page(1)
     except EmptyPage:
         tests = paginator.page(paginator.num_pages)
+    except:
+        tests = paginator.page(1)
+
     return render(request, 'test/index.html', {
         'testy': tests,
         'iloscTestow': len(testy),
