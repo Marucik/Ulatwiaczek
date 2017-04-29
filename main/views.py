@@ -102,9 +102,50 @@ def test_lista(request):
     except:
         tests = paginator.page(1)
 
+    sortingMethods = [
+        {
+            'value':'data_dodania',
+            'description':'Data dodania (rosnąco)'
+        },
+        {
+            'value':'-data_dodania',
+            'description':'Data dodania (malejąco)'
+        },
+        {
+            'value':'ilosc_zadan',
+            'description':'Ilość zadań (rosnąco)'
+        },
+        {
+            'value':'-ilosc_zadan',
+            'description':'Ilość zadań (malejąco)'
+        },
+        {
+            'value':'maks_ilosc_punktow',
+            'description':'Maksymalna ilość punktów (rosnąco)'
+        },
+        {
+            'value':'-maks_ilosc_punktow',
+            'description':'Maksymalna ilość punktów (malejąco)'
+        },
+        {
+            'value':'temat',
+            'description':'Temat (rosnąco)'},
+        {
+            'value':'-temat',
+            'description':'Temat (malejąco)'},
+        {
+            'value':'data_edytowania',
+            'description':'Data edytowania (rosnąco)'
+        },
+        {
+            'value':'-data_edytowania',
+            'description':'Data edytowania (malejąco)'
+        },
+    ]
     return render(request, 'test/index.html', {
         'testy': tests,
         'iloscTestow': len(testy),
+        'sortingMethods': sortingMethods,
 
     })
 
@@ -121,12 +162,12 @@ def test_szczegoly(request, id):
 
 @login_required(login_url='/ulatwiaczek/logowanie/')
 def test_usun(request, id):
-    deleted = True
+    isDeleted = True
     try:
         test = Test.objects.filter(autor=request.user).get(pk=id)
     except Test.DoesNotExist:
         #raise Http404
-        deleted = False
+        isDeleted = False
         return JsonResponse({
             "deleted" : deleted,
         })
@@ -135,10 +176,10 @@ def test_usun(request, id):
         test.aktywny = False
         test.save()
     except:
-        deleted = False
+        isDeleted = False
     return JsonResponse({
-        "deleted" : deleted,
-        "temat" : test.temat,
+        "deleted" : isDeleted,
+        "temat" : test.temat
     })
 
 
