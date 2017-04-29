@@ -17,17 +17,15 @@
     1. Przechodzimy w konsoli do głównego folderu projektu (można go poznać po plikach `manage.py, requirements.txt, README.md`;
 
       ![System plików](http://i.imgur.com/aZC3dvA.png)
-      
+
     2. Wpisujemy komendę `pip install virtualenv`. </br>Po zakończeniu instalacji sprawdzamy czy wszystko zainstalowało się poprawnie komendą `virtualenv --version`;</br>		
       ![Wersja virtualenv](http://i.imgur.com/2PFUcnL.png)
-      
+
     3. Tworzymy wirtualne środowisko `virtualenv virtualenv`  i aktywujemy go:</br>
         W przypadku Linuxa: `source virtualenv/bin/activate`</br>
 	W przypadku Windowsa: `virtualenv\Scripts\activate`</br>
 
-    4. Możemy teraz uruchomić wirtualne środowisko przygotowane dla Ułatwiaczka.</br>
-    Żeby "wejść" do tego środowiska wpisujemy w konsolę (będąc w głównym folderze projektu): `virtualenv\Scripts\activate`.</br>
-		Po wykonaniu tej komendy nasza konsola powinna wyglądać następująco:</br>		
+    4. Po wykonaniu tej komendy nasza konsola powinna wyglądać następująco:</br>		
     	![Wejscie do virtualenv](http://i.imgur.com/6TiPhxi.png)
 
     	Należy pamiętać, że musimy wejść do naszego wirtualnego środowiska za każdym razem jeżeli chcemy uruchomić naszą aplikację lokalnie ( ͡^ ͜ʖ ͡^).
