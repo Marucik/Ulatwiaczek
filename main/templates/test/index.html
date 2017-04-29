@@ -22,17 +22,17 @@
         </tr>
       {% for test in testy %}
         <tr>
-          <td>{{ test.id }}</td>
+          <td><abbr title="Forllop counter">FC</abbr> {{ forloop.counter }} <abbr title="ID w bazie">B</abbr> {{ test.id }}</td>
           <td>{{ test.przedmiot }}</td>
           <td>{{ test.temat }}</td>
           <td>{{ test.ilosc_zadan }}</td>
           <td>{{ test.maks_ilosc_punktow }}</td>
-          <td>{{ test.data_dodania }}</td>
-          <td>{{ test.data_edytowania }}</td>
+          <td>{{ test.data_dodania|date:"d.m.Y" }}</td>
+          <td>{{ test.data_edytowania|date:"d.m.Y" }}</td>
           <td>
             <a role="button" href="{% url 'test_szczegoly' id=test.id %}" class="btn btn-info">Szczegóły</a>
             <a role="button" href="{% url 'test_edytuj' id=test.id %}" class="btn btn-success">Edytuj</a>
-            <a role="button" href="#" class="btn btn-danger btn-delete" onclick="return usunTest('{% url 'test_usun' id=test.id %}')">Usuń</a>
+            <a role="button" href="{% url 'test_usun' id=test.id %}" class="btn btn-danger btn-delete" data-ajax-role="deleteTest">Usuń</a>
           </td>
         </tr>
       {% endfor %}
@@ -110,34 +110,33 @@
 
       </ul>
     </div>
-    <div>
-      
-      <form class="form-inline" method="GET" action="{% url 'test_lista' %}">
-        <label class="sr-only" for="selectCount">Ilość testów na stronę</label>
+
+    {% endif %}
+    <form class="form-inline" method="GET" action="{% url 'test_lista' %}">
+
+        {% if request.GET.strona %}
+        <input type="hidden" name="strona" value="{{ request.GET.strona|add:0 }}">
+        {% endif %}
+
+        <label for="selectCount">Ilość testów na stronę</label>
         <select class="custom-select form-control-lg" name="ilosc" id="selectCount">
           <option selected value="10">Wybierz ilość testów na strone...</option>
           <option {% if request.GET.ilosc|add:0 == 5 %} selected {% endif %} value="5">5</option>
           <option {% if request.GET.ilosc|add:0 == 10 %} selected {% endif %} value="10">10</option>
           <option {% if request.GET.ilosc|add:0 == 20 %} selected {% endif %} value="20">20</option>
         </select>
-        <label class="sr-only" for="sortBy">Sortuj</label>
+
+        <label for="sortBy">Sortuj</label>
         <select class="custom-select form-control-lg" name="sortowanie" id="sortBy">
-          <option value="-data_dodania" selected>Wybierz opcje sortowania...</option>
-          <option value="ilosc_zadan">Ilość zadań (rosnąco)</option>
-          <option value="-ilosc_zadan">Ilość zadań (malejąco)</option>
-          <option value="maks_ilosc_punktow">Maksymalna ilość punktów (rosnąco)</option>
-          <option value="-maks_ilosc_punktow">Maksymalna ilość punktów (malejąco)</option>
-          <option value="temat">Temat (rosnąco)</option>
-          <option value="-temat">Temat (malejąco)</option>
-          <option value="data_dodania">Data dodania (rosnąco)</option>
-          <option value="-data_dodania">Data dodania (malejąco) </option>
-          <option value="data_edytowania">Data edytowania (rosnąco)</option>
-          <option value="-data_edytowania">Data edytowania (malejąco)</option>
+          <option value="-data_dodania">Wybierz opcje sortowania...</option>
+          {% for method in sortingMethods %}
+            <option {% if request.GET.sortowanie == method.value %}selected{% endif %} value={{ method.value }}> {{ method.description }} </option>
+          {% endfor %}
+          
         </select>
         <input class="btn btn-primary btn-lg" type="submit" value="Wyślij!">
       </form>
     </div>
-    {% endif %}
   {% else %}
     <h3>Brak testów do wyświetlenia</h3>
   {% endif %}
