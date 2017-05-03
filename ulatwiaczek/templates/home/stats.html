@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ułatwiaczek - logowanie</title>
+  <link rel="stylesheet" href="{% static 'css/stats.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+
+    <div class="data">
+      <h1>W naszej bazie jest:</h1>
+      <ul>
+        <li>{{ iloscTestow }} testów,</li>
+        <li>{{ iloscPrzedmiotow }} przedmiotów.</li>
+        <li>{{ iloscTestow }} testów,</li>
+        <li>{{ iloscPrzedmiotow }} przedmiotów.</li>
+        <li>{{ iloscTestow }} testów,</li>
+        <li>{{ iloscPrzedmiotow }} przedmiotów.</li>
+        <li>{{ iloscTestow }} testów,</li>
+        <li>{{ iloscPrzedmiotow }} przedmiotów.</li>
+        <li>{{ iloscTestow }} testów,</li>
+        <li>{{ iloscPrzedmiotow }} przedmiotów.</li>
+      </ul>
+    </div>
+    <div class="pane">
+      <h1>Nad projektem pracują:</h1>
+      <div class="info">
+        <div class="profiles"><img src="https://github.com/Dawiducik.png" alt="">Dawid Rzeszutek <a href="https://github.com/Dawiducik" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></div>
+        <div class="profiles"><img src="https://goo.gl/p6YpvX" alt="">Dominik Zboch</div>
+        <div class="profiles"><img src="https://github.com/Marucik.png" alt="">Marcin Rakoczy <a href="https://github.com/Marucik" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

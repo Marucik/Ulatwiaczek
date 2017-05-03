@@ -2,7 +2,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
 from main.models import Test, Sprawdzian, Przedmiot
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -10,28 +9,11 @@ import datetime
 from django.core.exceptions import FieldError
 
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def index(request):
-    return render(request, "base.html")
+    return render(request, "main/base.html")
 
-def logowanie(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('test_lista')
-        else:
-            return HttpResponse("Nie znaleziono lub nieprawidłowe dane")
-    else:
-        return render(request, 'login.html')
-
-def wylogowanie(request):
-    logout(request)
-    return redirect('logowanie')
-
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def test_dodaj(request):
     przedmioty = Przedmiot.objects.all()
     if request.method == 'POST':
@@ -55,7 +37,7 @@ def test_dodaj(request):
         'przedmioty': przedmioty,
     })
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def test_lista(request):
     user = request.user
     testy = Test.objects.filter(autor=user).exclude(aktywny=False)
@@ -80,7 +62,7 @@ def test_lista(request):
     """
     try:
         testy = testy.order_by(request.GET.get('sortowanie'))
-    except: 
+    except:
         testy = testy.order_by('data_dodania')
 
     """
@@ -149,7 +131,7 @@ def test_lista(request):
 
     })
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def test_szczegoly(request, id):
     try:
         test = Test.objects.filter(autor=request.user).get(pk=id)
@@ -160,7 +142,7 @@ def test_szczegoly(request, id):
     })
 
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def test_usun(request, id):
     isDeleted = True
     try:
@@ -183,7 +165,7 @@ def test_usun(request, id):
     })
 
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def test_edytuj(request, id):
     #return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
     try:
@@ -191,26 +173,26 @@ def test_edytuj(request, id):
     except Test.DoesNotExist:
         raise Http404
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def sprawdzian_dodaj(request):
     return HttpResponse("<h1>Dodawanie sprawdzianu</h1>")
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def sprawdzian_lista(request):
     return HttpResponse("<h1>Lista sprawdzianów</h1>")
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def sprawdzian_szczegoly(request, id):
     sprawdzian = get_object_or_404(Sprawdzian, pk=id)
     return render(request, "sprawdzian/szczegoly.html", {
         "sprawdzian" : sprawdzian,
     })
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def sprawdzian_usun(request, id):
     return HttpResponse("<h1> Usuwanko sprawdzianu numerek %s </h1>" % id)
 
-@login_required(login_url='/ulatwiaczek/logowanie/')
+@login_required(login_url='/users/logowanie/')
 def sprawdzian_edytuj(request, id):
     return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
 
@@ -218,12 +200,4 @@ def testowanko(request):
     return JsonResponse({
         "deleted": True,
 
-    })
-
-def stats(request):
-    testy = Test.objects.all()
-    przedmioty = Przedmiot.objects.all()
-    return render(request, "stats.html", {
-        'iloscTestow': len(testy),
-        'iloscPrzedmiotow': len(przedmioty),
     })

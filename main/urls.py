@@ -2,10 +2,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from . import views
 
-urlpatterns = [
-    url(r'logowanie/$', views.logowanie, name="logowanie"),
-    url(r'wylogowanie/$', views.wylogowanie, name="wylogowanie"),
-
+urlpatterns = [    
     url(r'^$', views.index, name="index"),
     url(r'test/$', views.test_lista, name='test_lista'),
     url(r'test/dodaj/$', views.test_dodaj, name='test_dodaj'),
@@ -18,6 +15,5 @@ urlpatterns = [
     url(r'sprawdzian/(?P<id>[0-9]+)/$', views.sprawdzian_szczegoly, name='sprawdzian_szczegoly'),
     url(r'sprawdzian/(?P<id>[0-9]+)/usun/$', views.sprawdzian_usun, name='sprawdzian_usun'),
     url(r'sprawdzian/(?P<id>[0-9]+)/edytuj/$', views.sprawdzian_edytuj, name='sprawdzian_edytuj'),
-    url(r'stats/$', views.stats, name='stats'),
     url(r'admin/', admin.site.urls),
 ]
