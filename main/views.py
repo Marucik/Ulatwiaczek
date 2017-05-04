@@ -9,11 +9,12 @@ import datetime
 from django.core.exceptions import FieldError
 
 
-@login_required(login_url='/users/logowanie/')
+@login_required()
 def index(request):
     return render(request, "main/base.html")
 
-@login_required(login_url='/users/logowanie/')
+
+@login_required()
 def test_dodaj(request):
     przedmioty = Przedmiot.objects.all()
     if request.method == 'POST':
@@ -31,13 +32,14 @@ def test_dodaj(request):
         except:
             return render(request, 'test/dodaj.html', {
                 'przedmioty': przedmioty,
-                'error':True,
+                'error': True,
             })
-    return render(request, 'test/dodaj.html', {
+    return render(request, 'main/test/dodaj.html', {
         'przedmioty': przedmioty,
     })
 
-@login_required(login_url='/users/logowanie/')
+
+@login_required()
 def test_lista(request):
     user = request.user
     testy = Test.objects.filter(autor=user).exclude(aktywny=False)
@@ -57,11 +59,61 @@ def test_lista(request):
     jeśli się nie powiedzie (użytkownik wpisze metodę sortowania która nie istnieje)
     lista zostanie posortowana domyślnie (czyli datą - od najnowszych testów do najstarszych)
     """
+
     """
-    do poprawy (nie wymusza sortowania datą dodania gdy metoda sortowania podana w parametrze GET nie istnieje)
+    SORT_METHODS zawiera możliwości sortowania testów wraz z opisami do zwrócenia do template'
     """
+    SORT_METHODS = [
+        {
+            'value': 'data_dodania',
+            'description': 'Data dodania (rosnąco)'
+        },
+        {
+            'value': '-data_dodania',
+            'description': 'Data dodania (malejąco)'
+        },
+        {
+            'value': 'ilosc_zadan',
+            'description': 'Ilość zadań (rosnąco)'
+        },
+        {
+            'value': '-ilosc_zadan',
+            'description': 'Ilość zadań (malejąco)'
+        },
+        {
+            'value': 'maks_ilosc_punktow',
+            'description': 'Maksymalna ilość punktów (rosnąco)'
+        },
+        {
+            'value': '-maks_ilosc_punktow',
+            'description': 'Maksymalna ilość punktów (malejąco)'
+        },
+        {
+            'value': 'temat',
+            'description': 'Temat (rosnąco)'},
+        {
+            'value': '-temat',
+            'description': 'Temat (malejąco)'},
+        {
+            'value': 'data_edytowania',
+            'description': 'Data edytowania (rosnąco)'
+        },
+        {
+            'value': '-data_edytowania',
+            'description': 'Data edytowania (malejąco)'
+        },
+    ]
+
+    def isMethodAvailable(list, method):
+        for i in list:
+            if i['value'] == method:
+                return True
+        return False
     try:
-        testy = testy.order_by(request.GET.get('sortowanie'))
+        getSortMethod = request.GET.get('sortowanie')
+        if not isMethodAvailable(SORT_METHODS, getSortMethod):
+            raise
+        testy = testy.order_by(getSortMethod)
     except:
         testy = testy.order_by('data_dodania')
 
@@ -84,65 +136,25 @@ def test_lista(request):
     except:
         tests = paginator.page(1)
 
-    sortingMethods = [
-        {
-            'value':'data_dodania',
-            'description':'Data dodania (rosnąco)'
-        },
-        {
-            'value':'-data_dodania',
-            'description':'Data dodania (malejąco)'
-        },
-        {
-            'value':'ilosc_zadan',
-            'description':'Ilość zadań (rosnąco)'
-        },
-        {
-            'value':'-ilosc_zadan',
-            'description':'Ilość zadań (malejąco)'
-        },
-        {
-            'value':'maks_ilosc_punktow',
-            'description':'Maksymalna ilość punktów (rosnąco)'
-        },
-        {
-            'value':'-maks_ilosc_punktow',
-            'description':'Maksymalna ilość punktów (malejąco)'
-        },
-        {
-            'value':'temat',
-            'description':'Temat (rosnąco)'},
-        {
-            'value':'-temat',
-            'description':'Temat (malejąco)'},
-        {
-            'value':'data_edytowania',
-            'description':'Data edytowania (rosnąco)'
-        },
-        {
-            'value':'-data_edytowania',
-            'description':'Data edytowania (malejąco)'
-        },
-    ]
-    return render(request, 'test/index.html', {
+    return render(request, 'main/test/index.html', {
         'testy': tests,
         'iloscTestow': len(testy),
-        'sortingMethods': sortingMethods,
-
+        'sortingMethods': SORT_METHODS,
     })
 
-@login_required(login_url='/users/logowanie/')
+
+@login_required()
 def test_szczegoly(request, id):
     try:
         test = Test.objects.filter(autor=request.user).get(pk=id)
     except Test.DoesNotExist:
         raise Http404
-    return render(request, "test/szczegoly.html", {
-        "test":test
+    return render(request, "main/test/szczegoly.html", {
+        "test": test
     })
 
 
-@login_required(login_url='/users/logowanie/')
+@login_required()
 def test_usun(request, id):
     isDeleted = True
     try:
@@ -151,7 +163,7 @@ def test_usun(request, id):
         #raise Http404
         isDeleted = False
         return JsonResponse({
-            "deleted" : deleted,
+            "deleted": deleted,
         })
 
     try:
@@ -160,12 +172,12 @@ def test_usun(request, id):
     except:
         isDeleted = False
     return JsonResponse({
-        "deleted" : isDeleted,
-        "temat" : test.temat
+        "deleted": isDeleted,
+        "temat": test.temat
     })
 
 
-@login_required(login_url='/users/logowanie/')
+@login_required()
 def test_edytuj(request, id):
     #return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
     try:
@@ -173,31 +185,36 @@ def test_edytuj(request, id):
     except Test.DoesNotExist:
         raise Http404
 
-@login_required(login_url='/users/logowanie/')
+
+@login_required()
 def sprawdzian_dodaj(request):
     return HttpResponse("<h1>Dodawanie sprawdzianu</h1>")
 
-@login_required(login_url='/users/logowanie/')
+
+@login_required()
 def sprawdzian_lista(request):
     return HttpResponse("<h1>Lista sprawdzianów</h1>")
 
-@login_required(login_url='/users/logowanie/')
+
+@login_required()
 def sprawdzian_szczegoly(request, id):
     sprawdzian = get_object_or_404(Sprawdzian, pk=id)
-    return render(request, "sprawdzian/szczegoly.html", {
+    return render(request, "main/sprawdzian/szczegoly.html", {
         "sprawdzian" : sprawdzian,
     })
 
-@login_required(login_url='/users/logowanie/')
+
+@login_required()
 def sprawdzian_usun(request, id):
     return HttpResponse("<h1> Usuwanko sprawdzianu numerek %s </h1>" % id)
 
-@login_required(login_url='/users/logowanie/')
+
+@login_required()
 def sprawdzian_edytuj(request, id):
     return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
+
 
 def testowanko(request):
     return JsonResponse({
         "deleted": True,
-
     })
