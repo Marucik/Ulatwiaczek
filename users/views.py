@@ -6,22 +6,26 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import FieldError
 
 # Create your views here.
-def logowanie(request):
+def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('test_lista')
+            return redirect('main:test_lista')
         else:
             return HttpResponse("Nie znaleziono lub nieprawidłowe dane")
     else:
         return render(request, 'users/login.html')
 
-def rejestracja(request):
+
+
+def register_user(request):
     return render(request, 'users/register.html')
 
-def wylogowanie(request):
+def logout_user(request):
     logout(request)
-    return render(request, 'users/logout.html')
+    return redirect('users:login')
+
+
