@@ -13,7 +13,7 @@
 <body>
 <div class="container">
   <h1>Zarejestruj się!</h1>
-  <form class="login" method="post" action="{% url 'logowanie' %}">
+  <form class="login" method="post" action="{% url 'users:register' %}">
     {% csrf_token %}
     <input type="text" name="username" placeholder="Login:" required autofocus>
     <input type="text" name="email" placeholder="Email:" required autofocus>

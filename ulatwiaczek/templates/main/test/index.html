@@ -30,9 +30,9 @@
           <td>{{ test.data_dodania|date:"d.m.Y" }}</td>
           <td>{{ test.data_edytowania|date:"d.m.Y" }}</td>
           <td>
-            <a role="button" href="{% url 'test_szczegoly' id=test.id %}" class="btn btn-info">Szczegóły</a>
-            <a role="button" href="{% url 'test_edytuj' id=test.id %}" class="btn btn-success">Edytuj</a>
-            <a role="button" href="{% url 'test_usun' id=test.id %}" class="btn btn-danger btn-delete" data-ajax-role="deleteTest">Usuń</a>
+            <a role="button" href="{% url 'main:test_szczegoly' id=test.id %}" class="btn btn-info">Szczegóły</a>
+            <a role="button" href="{% url 'main:test_edytuj' id=test.id %}" class="btn btn-success">Edytuj</a>
+            <a role="button" href="{% url 'main:test_usun' id=test.id %}" class="btn btn-danger btn-delete" data-ajax-role="deleteTest">Usuń</a>
           </td>
         </tr>
       {% endfor %}
@@ -112,7 +112,7 @@
     </div>
 
     {% endif %}
-    <form class="form-inline" method="GET" action="{% url 'test_lista' %}">
+    <form class="form-inline" method="GET" action="{% url 'main:test_lista' %}">
 
         {% if request.GET.strona %}
         <input type="hidden" name="strona" value="{{ request.GET.strona|add:0 }}">
