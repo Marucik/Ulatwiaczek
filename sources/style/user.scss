@@ -6,7 +6,7 @@
 	font-size: 16px;
 	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
-	overflow-x: hidden;
+	// overflow: hidden;
 }
 
 .container {
@@ -20,19 +20,20 @@
 }
 
 h1 {
-	color: #fff;
-	font-size: 5rem;
+  font-size: 5rem;
+  color: #fff;
 }
 
 form {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	height: 400px;
-  margin-top: 10vh;
+	min-height: 200px;
+  margin-top: 9vh;
   color: #fff;
 
   input {
+    margin-bottom: 1rem;
     font-size: 2rem;
   }
 

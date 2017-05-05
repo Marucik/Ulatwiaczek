@@ -1,17 +1,9 @@
+{% extends 'users/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Ułatwiaczek - logowanie</title>
-  <link rel="stylesheet" href="{% static 'css/login.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
-</head>
-<body>
-<div class="container">
+
+{% block title %}Ułatwiaczek - logowanie{% endblock %}
+
+{% block content %}
   <img src="{% static 'images/napis.png' %}" alt="">
   <form class="login" method="post" action="{% url 'users:login' %}">
     {% csrf_token %}
@@ -19,6 +11,4 @@
     <input type="password" name="password" placeholder="Hasło:" required>
     <input class="button" type="submit" value="Zaloguj">
   </form>
-</div>
-</body>
-</html>
+{% endblock %}
