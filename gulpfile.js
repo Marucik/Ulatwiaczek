@@ -16,10 +16,10 @@ gulp.task('sass', function () {
       openbrace: 'end-of-line',
       autosemicolon: true
     }))
-    .pipe(gulp.dest('main/static/css'))
+    .pipe(gulp.dest('ulatwiaczek/static/css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('main/static/css'));
+    .pipe(gulp.dest('ulatwiaczek/static/css'));
 });
 gulp.task('bootstrap-v4-dev', function () {
   return gulp.src('./sources/style/bootstrap-v4-dev/scss/bootstrap.scss')
@@ -30,10 +30,10 @@ gulp.task('bootstrap-v4-dev', function () {
       openbrace: 'end-of-line',
       autosemicolon: true
     }))
-    .pipe(gulp.dest('main/static/css'))
+    .pipe(gulp.dest('ulatwiaczek/static/css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('main/static/css'));
+    .pipe(gulp.dest('ulatwiaczek/static/css'));
 });
 gulp.task('font-awesome', function () {
   return gulp.src('sources/style/font-awesome.scss')
@@ -44,13 +44,13 @@ gulp.task('font-awesome', function () {
       openbrace: 'end-of-line',
       autosemicolon: true
     }))
-    .pipe(gulp.dest('main/static/css'))
+    .pipe(gulp.dest('ulatwiaczek/static/css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('main/static/css'));
+    .pipe(gulp.dest('ulatwiaczek/static/css'));
 });
-gulp.task('sass:login', function () {
-  return gulp.src('sources/style/login.scss')
+gulp.task('sass:user', function () {
+  return gulp.src('sources/style/user.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([ autoprefixer() ]))
     .pipe(cssbeautify({
@@ -58,13 +58,13 @@ gulp.task('sass:login', function () {
       openbrace: 'end-of-line',
       autosemicolon: true
     }))
-    .pipe(gulp.dest('main/static/css'))
+    .pipe(gulp.dest('ulatwiaczek/static/css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('main/static/css'));
+    .pipe(gulp.dest('ulatwiaczek/static/css'));
 });
 gulp.task('sass:watch', function () {
-  gulp.watch('sources/style/*.scss',['sass', 'sass:login']);
+  gulp.watch('sources/style/*.scss',['sass', 'sass:user']);
   gulp.watch('./node_modules/bootstrap-v4-dev/scss/**/*',['bootstrap-v4-dev']);
 });
 
@@ -73,6 +73,6 @@ gulp.task('fonts', function() {
   .pipe(gulp.dest('main/static/fonts'))
 });
 
-gulp.task('css:compile', ['sass', 'sass:login', 'font-awesome', 'bootstrap-v4-dev'], function () {
+gulp.task('css:compile', ['sass', 'sass:user', 'font-awesome', 'bootstrap-v4-dev'], function () {
   console.log("Kompiluje pliki scss.");
 });
