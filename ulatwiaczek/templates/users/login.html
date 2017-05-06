@@ -7,6 +7,9 @@
   <img src="{% static 'images/napis.png' %}" alt="">
   <form class="login" method="post" action="{% url 'users:login' %}">
     {% csrf_token %}
+    {% if logout == True %}
+    <div class="alert alert-success"><strong>Wylogowano</strong> pomyślnie!</div>
+    {% endif %}
     <input type="text" name="username" placeholder="Login:" required autofocus>
     <input type="password" name="password" placeholder="Hasło:" required>
     <input class="button" type="submit" value="Zaloguj">
