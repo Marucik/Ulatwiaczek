@@ -3,13 +3,16 @@
 {% block title %}Ułatwiaczek - rejestracja{% endblock %}
 {% block content %}
   <h1>Zarejestruj się!</h1>
-  <form class="register" method="post" action="{% url 'users:register' %}">
+  {% if register_error %}
+    <h3>Błąd podczas rejestracji!</h3>
+  {% endif %}
+  <form class="login" method="post" action="{% url 'users:register' %}">
     {% csrf_token %}
-    <input type="text" name="username" placeholder="Login:" required autofocus>
-    <input type="text" name="email" placeholder="Email:" required autofocus>
-    <input type="password" name="password" placeholder="Hasło:" required>
-    <input type="password" name="passwordrep" placeholder="Powtórz hasło:" required>
-    <input type="text" name="Imie" placeholder="Imię:" required autofocus>
+    {% for field in register_form %}
+    <label for="{{field.id_for_label}}">{{ field.label }}. {{ field.help_text }}</label>
+    {{ field }}
+
+    {% endfor %}
     <input class="button" type="submit" value="Zarejestruj">
   </form>
 {% endblock %}
