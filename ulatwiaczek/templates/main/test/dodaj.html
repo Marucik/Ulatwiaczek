@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %} Dodawanie testu {% endblock %}
+{% block contentTitle %} Dodaj sobie teścik {% endblock %}
+{% block customStyles %}
+    #testy {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+    {% if error %}
+        <h2 style="color: red"> Coś poszedło nie tak! </h2>
+    {% endif %}
+
+    {% if przedmioty %}
+        <form class="form-inline" action="{% url 'main:test_dodaj' %}" method="POST">
+            {% csrf_token %}
+            Przedmiot
+            <select class="form-control" name="idPrzedmiotu" id="">
+                {% for przedmiot in przedmioty %}
+                    <option value="{{ przedmiot.id }}">{{ przedmiot.nazwa }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" placeholder="Temat" name="temat" required>
+            <input type="number" placeholder="Ilość zadań" name="ilosc_zadan" min="1" required>
+            <input type="number" placeholder="Maksymalna ilość punktów za test" name="maks_ilosc_punktow" min="1" required>
+            <input type="submit" value="Utwórz test ( ͡° ͜ʖ ͡°)">
+        </form>
+
+    {% else %}
+        <h3>Nie znaleziono przedmiotów w bazie :(</h3>
+    {% endif %}
+
+{% endblock %}

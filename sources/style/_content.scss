@@ -1,0 +1,21 @@
+.content {
+  flex-basis: 85%;
+  height: 100%;
+  padding: 1rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #fff;
+
+  .title {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .display {
+    margin-bottom: 1rem;
+    padding-top: 0.6rem;
+  }
+  @import "tables";
+}

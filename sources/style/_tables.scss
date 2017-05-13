@@ -1,0 +1,19 @@
+table {
+
+    th {
+        background-color: $baseBlueLight;
+        color: #fff;
+    }
+    td {
+        vertical-align: middle;
+    }
+    td:last-child {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+label {
+  // Wycentrowanie lebel'i bootstrap nie ogarniał nie wiem dlaczego ;_;
+  display: inline;
+}
