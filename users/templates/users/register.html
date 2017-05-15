@@ -9,7 +9,7 @@
   <form class="login" method="post" action="{% url 'users:register' %}">
     {% csrf_token %}
     {% for field in register_form %}
-    <label for="{{field.id_for_label}}">{{ field.label }}. {{ field.help_text }}</label>
+    <label for="{{field.id_for_label}}">{{ field.label }}. {{ field.help_text | safe}}</label>
     {{ field }}
 
     {% endfor %}
