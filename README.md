@@ -43,4 +43,4 @@ Po wykonaniu poprzednich kroków, wreszcie możemy uruchomić naszą aplikację 
   	1. W konsoli [w której mamy uruchomione wirtualne środowisko!] otwartej w głównym folderze projektu (poznamy go po pliku `manage.py`) wpisujemy komendę: `python manage.py runserver`</br>
   	Powinniśmy zobaczyć coś takiego:</br>
   		![Uruchomiony serwer](http://i.imgur.com/eZjIvZu.png)
-  	2. Uruchamiamy przeglądarkę i wpisujemy adres: `127.0.0.1:8000`. Powinna nam się pokazać strona Ułatwiaczka.
+  	2. Uruchamiamy przeglądarkę i wpisujemy adres: `127.0.0.1:8000`. Powinna nam się pokazać strona Ułatwiaczka. 
