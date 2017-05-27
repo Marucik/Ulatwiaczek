@@ -127,4 +127,4 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = '/konto/login/'
+LOGIN_URL = '/konto/logowanie/'

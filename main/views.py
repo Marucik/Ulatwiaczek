@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
-from main.models import Test, Sprawdzian, Przedmiot
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.exceptions import FieldError
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http import (Http404, HttpResponse, HttpResponseNotFound,
+                         HttpResponseRedirect, JsonResponse)
+from django.shortcuts import get_object_or_404, redirect, render
+
+from main.models import Przedmiot, Sprawdzian, Test
+from main.forms import PrzedmiotAddForm
 
 
 @login_required()
@@ -126,7 +130,7 @@ def test_lista(request):
     except:
         getPage = 1
 
-    #tworzy paginację listy testów
+    # tworzy paginację listy testów
     paginator = Paginator(testy, getObjectsOnPage)
 
     try:
@@ -160,7 +164,7 @@ def test_usun(request, id):
     try:
         test = Test.objects.filter(autor=request.user).get(pk=id)
     except Test.DoesNotExist:
-        #raise Http404
+        # raise Http404
         isDeleted = False
         return JsonResponse({
             "deleted": deleted,
@@ -179,7 +183,7 @@ def test_usun(request, id):
 
 @login_required()
 def test_edytuj(request, id):
-    #return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
+    # return HttpResponse("<h1> Edytowanko testu numerek %s </h1>" % id)
     try:
         test = Test.objects.filter(autor=request.user).get(pk=id)
     except Test.DoesNotExist:
@@ -200,7 +204,7 @@ def sprawdzian_lista(request):
 def sprawdzian_szczegoly(request, id):
     sprawdzian = get_object_or_404(Sprawdzian, pk=id)
     return render(request, "main/sprawdzian/szczegoly.html", {
-        "sprawdzian" : sprawdzian,
+        "sprawdzian": sprawdzian,
     })
 
 
@@ -212,6 +216,37 @@ def sprawdzian_usun(request, id):
 @login_required()
 def sprawdzian_edytuj(request, id):
     return HttpResponse("<h1> Edytowanko sprawdzianku numerek %s </h1>" % id)
+
+
+@login_required()
+def przedmiot_lista(request):
+    try:
+        przedmioty = Przedmiot.objects.filter(autor=request.user).exclude(aktywny=False)
+    except:
+        przedmioty = False
+    return render(request, 'main/przedmiot/index.html', {
+        'przedmioty': przedmioty,
+    })
+
+
+@login_required()
+def przedmiot_dodaj(request):
+    if request.method == 'POST':
+        form = PrzedmiotAddForm(request.POST)
+        if form.is_valid():
+            form.autor = request.user
+            form.save()
+            return redirect('main:przedmiot_lista')
+        else:
+            return render(request, 'main/przedmiot/dodaj.html', {
+                'add_test_form': form,
+                'add_test_error': True,
+            })
+    else:
+        form = PrzedmiotAddForm()
+    return render(request, 'main/przedmiot/dodaj.html', {
+        'add_test_form': form,
+    })
 
 
 def testowanko(request):

@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+{% block contentTitle %} Lista wszystkich dodanych przedmiotów {% endblock %}
+{% block customStyles %}
+    #przedmioty {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+  <div id="alert"></div>
+  {% if przedmioty %}
+    <h3>Znaleziono {{ przedmioty|length }} przedmioty</h3>
+    <table class="table">
+        <tr>
+          <th>Numer</th>
+          <th>Nazwa przedmiotu</th>
+          <th>Skrót</th>
+        </tr>
+      {% for przedmiot in przedmioty %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ przedmiot.nazwa }}</td>
+          <td>{{ przedmiot.skrot }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <h3>Brak przedmiotów do wyświetlenia</h3>
+  {% endif %}
+{% endblock %}

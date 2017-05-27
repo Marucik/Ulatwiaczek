@@ -2,13 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
 
-# heh3szki
+
 class Przedmiot(models.Model):
     nazwa = models.CharField(max_length=50)
     skrot = models.CharField(max_length=10)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    aktywny = models.BooleanField(default=True)
+
     class Meta:
         db_table = 'Przedmiot'
         verbose_name_plural = 'Przedmioty'
+
     def __str__(self):
         return self.nazwa
 
@@ -16,9 +20,11 @@ class Przedmiot(models.Model):
 class Nauczyciel(models.Model):
     imie = models.CharField(max_length=50)
     nazwisko = models.CharField(max_length=50)
+
     class Meta:
         db_table = 'Nauczyciel'
         verbose_name_plural = 'Nauczyciele'
+
     def __str__(self):
         return self.imie + ' ' + self.nazwisko
 
@@ -32,9 +38,11 @@ class Test(models.Model):
     data_dodania = models.DateField(default=date.today)
     data_edytowania = models.DateField(default=date.today)
     aktywny = models.BooleanField(default=True)
+
     class Meta:
         db_table = 'Test'
         verbose_name_plural = 'Testy'
+
     def __str__(self):
         return self.temat
 
@@ -47,9 +55,11 @@ class Sprawdzian(models.Model):
     data_dodania = models.DateField(default=date.today)
     data_edytowania = models.DateField(default=date.today)
     aktywny = models.BooleanField(default=True)
+
     class Meta:
         db_table = 'Sprawdzian'
         verbose_name_plural = 'Sprawdziany'
+
     def __str__(self):
         return str(self.test) + ' przez ' + str(self.autor)
 
@@ -59,8 +69,10 @@ class Zadanie(models.Model):
     numer = models.IntegerField()
     ilosc_punktow_uczniow = models.DecimalField(max_digits=5, decimal_places=2)
     maks_ilosc_punktow = models.IntegerField()
+
     class Meta:
         db_table = 'Zadanie'
         verbose_name_plural = 'Zadania'
+
     def __str__(self):
         return str(self.sprawdzian) + ' zadanie numer ' + str(self.numer)

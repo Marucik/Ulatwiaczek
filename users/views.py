@@ -27,6 +27,7 @@ def login_user(request):
         else:
             return render(request, 'users/login.html')
 
+
 def register_user(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -37,7 +38,7 @@ def register_user(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect('main:index')
-        else: 
+        else:
             return render(request, 'users/register.html', {
                 'register_form': form,
                 'register_error': True,
@@ -47,6 +48,7 @@ def register_user(request):
     return render(request, 'users/register.html', {
         'register_form': form,
     })
+
 
 def logout_user(request):
     logout(request)
