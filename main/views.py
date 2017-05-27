@@ -20,7 +20,7 @@ def index(request):
 
 @login_required()
 def test_dodaj(request):
-    przedmioty = Przedmiot.objects.all()
+    przedmioty = Przedmiot.objects.filter(autor=request.user.id).exclude(aktywny=False)
     if request.method == 'POST':
         przedmiot = request.POST['idPrzedmiotu']
         autor = request.user.id
