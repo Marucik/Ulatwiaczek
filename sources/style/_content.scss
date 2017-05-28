@@ -6,6 +6,15 @@
   overflow-x: hidden;
   background-color: #fff;
 
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+    background-color: lightgray;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $baseBlueDarker;
+  }
   .title {
     display: flex;
     align-items: center;
