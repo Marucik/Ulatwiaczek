@@ -10,24 +10,23 @@ from django.shortcuts import get_object_or_404, redirect, render
 from users.forms import RegisterForm
 
 
-# Create your views here.
 def login_user(request):
-    if request.user.is_authenticated:
-        return redirect('main:test_lista')
-    else:
-        if request.method == 'POST':
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('main:test_lista')
-            else:
-                return render(request, 'users/login.html', {
-                    'loginError': True,
-                })
+    # if request.user.is_authenticated:
+    #     return redirect('main:test_lista')
+    # else:
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('main:test_lista')
         else:
-            return render(request, 'users/login.html')
+            return render(request, 'users/login.html', {
+                'loginError': True,
+            })
+    else:
+        return render(request, 'users/login.html')
 
 
 def register_user(request):
