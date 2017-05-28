@@ -23,7 +23,9 @@ def login_user(request):
                 login(request, user)
                 return redirect('main:test_lista')
             else:
-                return HttpResponse("Nie znaleziono lub nieprawidłowe dane")
+                return render(request, 'users/login.html', {
+                    'loginError': True,
+                })
         else:
             return render(request, 'users/login.html')
 
