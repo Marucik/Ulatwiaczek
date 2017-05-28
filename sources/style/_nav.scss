@@ -3,11 +3,13 @@ nav {
   flex-flow: column nowrap;
   justify-content: space-between;
   height: 100%;
-  flex-basis: 15%;
+  flex-basis: $navWidth;
+  flex-shrink: 0;
   background-color: $baseBlueLight;
   ul {
     width: 100%;
-    padding: 1.5rem 0;
+    padding: 1rem 0;
+    margin: 0;
   }
   .showDropdown {
     display: block;
@@ -33,6 +35,7 @@ nav {
     &:hover {
       background-color: $baseBlue;
     }
+
     a {
       display: block;
       padding: 1.5rem 0 1.5rem 1rem;
@@ -54,6 +57,13 @@ nav {
       }
     }
   }
+
+  li.logout {
+    &:hover {
+      background-color: $red;
+    }
+  }
+
   footer {
     width: 100%;
     display: flex;
