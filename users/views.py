@@ -6,6 +6,7 @@ from django.core.exceptions import FieldError
 from django.http import (Http404, HttpResponse, HttpResponseNotFound,
                          HttpResponseRedirect, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
 
 from users.forms import RegisterForm
 
@@ -14,13 +15,21 @@ def login_user(request):
     # if request.user.is_authenticated:
     #     return redirect('main:test_lista')
     # else:
+    try:
+        logout_state = request.GET.get('logout')
+        if int(logout_state) == 1:
+            logout(request)
+        else:
+            raise
+    except:
+        pass
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('main:test_lista')
+            return redirect('main:index')
         else:
             return render(request, 'users/login.html', {
                 'loginError': True,
@@ -48,11 +57,4 @@ def register_user(request):
         form = RegisterForm()
     return render(request, 'users/register.html', {
         'register_form': form,
-    })
-
-
-def logout_user(request):
-    logout(request)
-    return render(request, 'users/login.html', {
-        'logout': True,
     })
