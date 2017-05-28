@@ -21,14 +21,15 @@
                     <option value="{{ przedmiot.id }}">{{ przedmiot.nazwa }}</option>
                 {% endfor %}
             </select>
-            <input type="text" placeholder="Temat" name="temat" required>
-            <input type="number" placeholder="Ilość zadań" name="ilosc_zadan" min="1" required>
-            <input type="number" placeholder="Maksymalna ilość punktów za test" name="maks_ilosc_punktow" min="1" required>
-            <input type="submit" value="Utwórz test ( ͡° ͜ʖ ͡°)">
+            <input class="form-control" type="text" placeholder="Temat" name="temat" required>
+            <input class="form-control" type="number" placeholder="Ilość zadań" name="ilosc_zadan" min="1" required>
+            <input class="form-control" type="number" placeholder="Maksymalna ilość punktów za test" name="maks_ilosc_punktow" min="1" required>
+            <input class="btn btn-primary" type="submit" value="Utwórz test ( ͡° ͜ʖ ͡°)">
         </form>
 
     {% else %}
         <h3>Nie znaleziono przedmiotów w bazie :(</h3>
+        <h3>Kliknij <a href="{% url 'main:przedmioty_dodaj' %}">tutaj</a> aby dodać przedmioty</h3>
     {% endif %}
 
 {% endblock %}

@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %} Dodawanie sprawdzianu {% endblock %}
+{% block contentTitle %} Dodaj sobie sprawdzian {% endblock %}
+{% block customStyles %}
+    #sprawdziany {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+    {% if test %}
+        <span>ID: </span> <strong>{{test.id}}</strong> <br>
+        <span>Temat: </span><strong>{{test.temat}}</strong> <br>
+        <span>Przedmiot: </span> <strong>{{test.przedmiot}}</strong> <br>
+        <span>Ilość zadań: </span><strong>{{test.ilosc_zadan}}</strong> <br>
+        <span>Maksymalna ilość punktów: </span><strong>{{test.maks_ilosc_punktow}}</strong> <br>
+        <span>Dodano: </span> <strong>{{test.data_dodania}}</strong> <br>
+        <span>Edytowano: </span> <strong>{{test.data_edytowania}}</strong> <br>
+    {% endif %}
+
+    {% if add_klasa_error %}
+        <h2 style="color: red"> Coś poszedło nie tak! </h2>
+    {% endif %}
+    <form class="form-inline" action="{% url 'main:klasa_dodaj' %}" method="POST">
+        {% csrf_token %}
+        {% for field in add_klasa_form %}
+        <input class="form-control" type="text" placeholder="{{ field.help_text }}" name="{{ field.name }}" max="50" required>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" value="Dodaj Klase">
+    </form>
+{% endblock %}

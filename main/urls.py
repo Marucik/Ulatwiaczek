@@ -12,11 +12,22 @@ urlpatterns = [
 
     url(r'sprawdzian/$', views.sprawdzian_lista, name='sprawdzian_lista'),
     url(r'sprawdzian/dodaj/$', views.sprawdzian_dodaj, name='sprawdzian_dodaj'),
+    url(r'sprawdzian/dodaj/(?P<test_id>[0-9]+)/$', views.sprawdzian_dodaj, name='sprawdzian_dodaj'),
+    url(r'sprawdzian/dodaj/(?P<test_id>[0-9]+)/(?P<klasa_id>[0-9]+)/$', views.sprawdzian_dodaj, name='sprawdzian_dodaj'),
     url(r'sprawdzian/(?P<id>[0-9]+)/$', views.sprawdzian_szczegoly, name='sprawdzian_szczegoly'),
     url(r'sprawdzian/(?P<id>[0-9]+)/usun/$', views.sprawdzian_usun, name='sprawdzian_usun'),
+    url(r'sprawdzian/(?P<id>[0-9]+)/(?P<uczen_id>[0-9]+)/edytuj$', views.sprawdzian_usun, name='sprawdzian_usun'),
     url(r'sprawdzian/(?P<id>[0-9]+)/edytuj/$', views.sprawdzian_edytuj, name='sprawdzian_edytuj'),
 
     url(r'przedmiot/$', views.przedmiot_lista, name='przedmiot_lista'),
     url(r'przedmiot/dodaj/$', views.przedmiot_dodaj, name='przedmiot_dodaj'),
+
+    url(r'klasa/$', views.klasa_lista, name='klasa_lista'),
+    url(r'klasa/dodaj/$', views.klasa_dodaj, name='klasa_dodaj'),
+    url(r'klasa/(?P<klasa_id>[0-9]+)/$', views.klasa_uczniowie, name='klasa_uczniowie'),
+
+    url(r'uczen/$', views.uczen_lista, name='uczen_lista'),
+    url(r'uczen/dodaj/$', views.uczen_dodaj, name='uczen_dodaj'),
+
 
 ]

@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %} Dodawanie klasy {% endblock %}
+{% block contentTitle %} Dodaj sobie klase {% endblock %}
+{% block customStyles %}
+    #klasy {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+    {% if add_klasa_error %}
+        <h2 style="color: red"> Coś poszedło nie tak! </h2>
+    {% endif %}
+    <form class="form-inline" action="{% url 'main:klasa_dodaj' %}" method="POST">
+        {% csrf_token %}
+        {% for field in add_klasa_form %}
+        <input class="form-control" type="text" placeholder="{{ field.help_text }}" name="{{ field.name }}" max="50" required>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" value="Dodaj Klase">
+    </form>
+{% endblock %}

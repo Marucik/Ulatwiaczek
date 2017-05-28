@@ -47,6 +47,27 @@ class Test(models.Model):
         return self.temat
 
 
+class Klasa(models.Model):
+    nazwa = models.CharField(max_length=50)
+    skrot = models.CharField(max_length=10)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Klasa'
+        verbose_name_plural = 'Klasy'
+
+
+class Uczen(models.Model):
+    imie = models.CharField(max_length=50)
+    nazwisko = models.CharField(max_length=50)
+    klasa = models.ForeignKey(Klasa, on_delete=models.CASCADE, null=True)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Uczen'
+        verbose_name_plural = 'Uczniowie'
+
+
 class Sprawdzian(models.Model):
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)

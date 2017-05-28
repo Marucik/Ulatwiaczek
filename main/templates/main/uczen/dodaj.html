@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %} Dodawanie ucznia {% endblock %}
+{% block contentTitle %} Dodaj sobie ucznia {% endblock %}
+{% block customStyles %}
+    #uczniowie {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+    {% if add_uczen_error %}
+        <h2 style="color: red"> Coś poszedło nie tak! </h2>
+    {% endif %}
+    {% if klasy %}
+    <form class="form-inline" action="{% url 'main:uczen_dodaj' %}" method="POST">
+        {% csrf_token %}
+        {% for field in add_uczen_form %}
+        <input class="form-control" type="text" placeholder="{{ field.help_text }}" name="{{ field.name }}" max="50" required>
+        {% endfor %}
+        <select name="klasa_id" class="form-control">
+        {% for klasa in klasy %}
+        <option value="{{ klasa.id }}">{{ klasa.skrot }} | {{ klasa.nazwa }}</option>
+        {% endfor %}
+        </select>
+        <input class="btn btn-primary" type="submit" value="Dodaj Ucznia">
+    </form>
+    {% else %}
+        <h5>Nie znaleziono żadnej klasy do której można dodać ucznia!</h5>
+        <span>Klasy możesz dodać <a href="{% url 'main:klasa_dodaj' %}">tutaj</a></span>
+    {% endif %}
+{% endblock %}

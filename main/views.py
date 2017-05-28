@@ -9,8 +9,8 @@ from django.http import (Http404, HttpResponse, HttpResponseNotFound,
                          HttpResponseRedirect, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect, render
 
-from main.models import Przedmiot, Sprawdzian, Test
-from main.forms import PrzedmiotAddForm
+from main.models import Przedmiot, Sprawdzian, Test, Uczen, Klasa
+from main.forms import PrzedmiotAddForm, UczenAddForm, KlasaAddForm
 
 
 @login_required()
@@ -20,7 +20,11 @@ def index(request):
 
 @login_required()
 def test_dodaj(request):
-    przedmioty = Przedmiot.objects.filter(autor=request.user.id).exclude(aktywny=False)
+    try:
+        przedmioty = Przedmiot.objects.filter(autor=request.user.id).exclude(aktywny=False)
+    except:
+        przedmioty = False
+
     if request.method == 'POST':
         przedmiot = request.POST['idPrzedmiotu']
         autor = request.user.id
@@ -191,8 +195,19 @@ def test_edytuj(request, id):
 
 
 @login_required()
-def sprawdzian_dodaj(request):
-    return HttpResponse("<h1>Dodawanie sprawdzianu</h1>")
+def sprawdzian_dodaj(request, test_id=None, klasa_id=None):
+    if not test_id and not klasa_id:
+        return redirect('main:test_lista')
+    try:
+        test = Test.objects.filter(autor=request.user.id).get(pk=test_id)
+    except Test.DoesNotExist:
+        raise Http404
+    
+    return render(request, 'main/sprawdzian/dodaj.html', {
+        'test': test,
+    })
+
+    return HttpResponse(test)
 
 
 @login_required()
@@ -246,6 +261,89 @@ def przedmiot_dodaj(request):
         form = PrzedmiotAddForm()
     return render(request, 'main/przedmiot/dodaj.html', {
         'add_test_form': form,
+    })
+
+
+@login_required()
+def klasa_lista(request):
+    try:
+        klasy = Klasa.objects.filter(autor=request.user)
+    except:
+        klasy = False
+    return render(request, 'main/klasa/index.html', {
+        'klasy': klasy,
+    })
+
+
+@login_required()
+def klasa_dodaj(request):
+    if request.method == 'POST':
+        form = KlasaAddForm(request.POST)
+        if form.is_valid():
+            form.autor = request.user
+            form.save()
+        else:
+            return render(request, 'main/klasa/dodaj.html', {
+                'add_klasa_form': form,
+                'add_klasa_error': True
+            })
+    else:
+        form = KlasaAddForm()
+    return render(request, 'main/klasa/dodaj.html', {
+        'add_klasa_form': form
+    })
+
+
+@login_required()
+def klasa_uczniowie(request, klasa_id):
+    try:
+        klasa = get_object_or_404(Klasa, pk=klasa_id)
+    except:
+        raise 404
+
+    try:
+        uczniowie_w_klasie = Uczen.objects.filter(autor=request.user).filter(klasa=klasa_id)
+    except:
+        uczniowie_w_klasie = False
+
+    return render(request, 'main/klasa/szczegoly.html', {
+        'uczniowie': uczniowie_w_klasie,
+        'klasa': klasa
+    })
+
+
+@login_required()
+def uczen_lista(request):
+    try:
+        uczniowie = Uczen.objects.filter(autor=request.user)
+    except:
+        uczniowie = False
+    return render(request, 'main/uczen/index.html', {
+        'uczniowie': uczniowie,
+    })
+
+
+@login_required()
+def uczen_dodaj(request):
+    if request.method == 'POST':
+        form = UczenAddForm(request.POST)
+        if form.is_valid():
+            form.autor = request.user
+            form.klasa = Klasa.objects.get(pk=int(request.POST.get("klasa_id")))
+            form.save()
+        else:
+            return render(request, 'main/klasa/dodaj.html', {
+                'add_uczen_form': form,
+                'add_uczen_error': True
+            })
+    form = UczenAddForm()
+    try:
+        klasy = Klasa.objects.filter(autor=request.user)
+    except Klasa.DoesNotExist:
+        klasy = False
+    return render(request, 'main/uczen/dodaj.html', {
+        'add_uczen_form': form,
+        'klasy': klasy,
     })
 
 
