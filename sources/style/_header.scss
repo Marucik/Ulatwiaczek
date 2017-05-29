@@ -1,17 +1,21 @@
 header {
 	display: flex;
 	flex-direction: row;
+	position: relative;
 	height: 9vh;
 	width: 100%;
+	z-index: 2;
+	
 
 	.logo {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		flex-basis: $navWidth;
+		width: $navWidth;
 		flex-shrink: 0;
 		background-color: $baseBlue;
+		transition: all 1s ease;
 
 		img {
 			align-self: center;
@@ -24,11 +28,26 @@ header {
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
-		flex-basis: 100%;
+		width: 100%;
 		font-size: 2vw;
 		padding-left: 1vw;
 		background-color: $baseBlueDarker;
 		color: #fff;
+		transition: all 1s ease;
+	}
+}
+
+@media screen and (max-width: 1001px) {
+  header {
+	  
+	.logo {
+		width: 100%;
+		transition: all 1s ease;
 	}
 
+	.message {
+		width: 0px;
+		transition: all 1s ease;
+	}
+  }
 }

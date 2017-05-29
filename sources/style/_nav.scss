@@ -6,6 +6,7 @@
   left: 0;
   width: 9vh;
   height: 9vh;
+  z-index: 3;
 }
 
 nav {
@@ -16,6 +17,8 @@ nav {
   width: $navWidth;
   flex-shrink: 0;
   background-color: $baseBlueLight;
+  transition: all .7s ease;
+  z-index: 1;
   ul {
     width: 100%;
     padding: 1rem 0;
@@ -79,22 +82,29 @@ nav {
     }
   }
 
-  footer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-      width: 90%;
-    }
-  }
+//   footer {
+//     width: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     img {
+//       width: 90%;
+//     }
+//   }
 }
 
 @media screen and (max-width: 1470px) {
   nav {
-    display: none;
+    // display: none;
     position: absolute;
+    left: -$navWidth;
+
+    ul {
+      padding-bottom: 5rem;
+    }
   }
+
+ 
 
   .menuButton {
     display: flex;
@@ -104,7 +114,10 @@ nav {
 }
 
 .revealNav {
-  display: flex;
-  width: $navWidth; 
+  // display: flex;
+  width: $navWidth;
+  left: 0;
   top: 9vh;
+  box-shadow: 8px -2px 42px 5px rgba(0,0,0,0.75);
+
 }
