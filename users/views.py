@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.core.exceptions import FieldError
 from django.http import (Http404, HttpResponse, HttpResponseNotFound,
                          HttpResponseRedirect, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect, render
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 from users.forms import RegisterForm
@@ -15,19 +13,11 @@ def login_user(request):
     # if request.user.is_authenticated:
     #     return redirect('main:test_lista')
     # else:
-    try:
-        logout_state = request.GET.get('logout')
-        if int(logout_state) == 1:
-            logout(request)
-        else:
-            raise
-    except:
-        pass
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
             return redirect('main:index')
         else:
@@ -58,3 +48,9 @@ def register_user(request):
     return render(request, 'users/register.html', {
         'register_form': form,
     })
+
+
+def wyloguj(request):
+    """Wylogowanie użytkownika"""
+    logout(request)
+    return redirect(reverse('users:login'))

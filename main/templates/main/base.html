@@ -56,28 +56,28 @@
               <li id="przedmiotyLista"><a href="{% url 'main:przedmiot_lista' %}"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li>
             </ol>
           </li>
-          <li id="klasy"> 
-            <a class="dropdownButton" href="#"> 
-              <span class="ikona"><i class="fa fa-users" aria-hidden="true"></i></span> Klasy 
-              <span class="rozwin"><i class="fa fa-caret-down" aria-hidden="true"></i></span> 
-            </a> 
-            <ol> 
-              <li id="klasaDodaj"><a href="{% url 'main:klasa_dodaj' %}"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li> 
-              <li id="klasaLista"><a href="{% url 'main:klasa_lista' %}"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li> 
-            </ol> 
-          </li> 
-          <li id="uczniowie"> 
-            <a class="dropdownButton" href="#"> 
-              <span class="ikona"><i class="fa fa-user" aria-hidden="true"></i></span> Uczniowie 
-              <span class="rozwin"><i class="fa fa-caret-down" aria-hidden="true"></i></span> 
-            </a> 
-            <ol> 
-              <li id="uczniowieDodaj"><a href="{% url 'main:uczen_dodaj' %}"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li> 
-              <li id="uczniowieLista"><a href="{% url 'main:uczen_lista' %}"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li> 
-            </ol> 
-          </li> 
+          <li id="klasy">
+            <a class="dropdownButton" href="#">
+              <span class="ikona"><i class="fa fa-users" aria-hidden="true"></i></span> Klasy
+              <span class="rozwin"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+            </a>
+            <ol>
+              <li id="klasaDodaj"><a href="{% url 'main:klasa_dodaj' %}"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li>
+              <li id="klasaLista"><a href="{% url 'main:klasa_lista' %}"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li>
+            </ol>
+          </li>
+          <li id="uczniowie">
+            <a class="dropdownButton" href="#">
+              <span class="ikona"><i class="fa fa-user" aria-hidden="true"></i></span> Uczniowie
+              <span class="rozwin"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+            </a>
+            <ol>
+              <li id="uczniowieDodaj"><a href="{% url 'main:uczen_dodaj' %}"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li>
+              <li id="uczniowieLista"><a href="{% url 'main:uczen_lista' %}"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li>
+            </ol>
+          </li>
           <li class="logout">
-              <a href="{% url 'users:login' %}?logout=1">Wyloguj</a>
+              <a href="{% url 'users:wyloguj' %}">Wyloguj</a>
           </li>
         </ul>
         <!--<footer>

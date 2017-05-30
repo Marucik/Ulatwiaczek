@@ -202,7 +202,7 @@ def sprawdzian_dodaj(request, test_id=None, klasa_id=None):
         test = Test.objects.filter(autor=request.user.id).get(pk=test_id)
     except Test.DoesNotExist:
         raise Http404
-    
+
     return render(request, 'main/sprawdzian/dodaj.html', {
         'test': test,
     })
