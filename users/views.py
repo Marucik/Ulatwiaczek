@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.http import (Http404, HttpResponse, HttpResponseNotFound,
                          HttpResponseRedirect, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect, render
-from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import login_required
 
 from users.forms import RegisterForm
 
 
-def login_user(request):
-    # if request.user.is_authenticated:
-    #     return redirect('main:test_lista')
-    # else:
+def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('main:test_lista')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -24,11 +24,10 @@ def login_user(request):
             return render(request, 'users/login.html', {
                 'loginError': True,
             })
-    else:
-        return render(request, 'users/login.html')
+    return render(request, 'users/login.html')
 
 
-def register_user(request):
+def user_register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -50,7 +49,7 @@ def register_user(request):
     })
 
 
-def wyloguj(request):
+def user_logout(request):
     """Wylogowanie użytkownika"""
     logout(request)
     return redirect(reverse('users:login'))
