@@ -117,7 +117,7 @@ nav {
   // display: flex;
   width: $navWidth;
   left: 0;
-  top: 9vh;
+  top: $headerHeight;
   box-shadow: 8px -2px 42px 5px rgba(0,0,0,0.75);
 
 }

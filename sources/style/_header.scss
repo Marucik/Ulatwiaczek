@@ -2,7 +2,7 @@ header {
 	display: flex;
 	flex-direction: row;
 	position: relative;
-	height: 9vh;
+	height: $headerHeight;
 	width: 100%;
 	z-index: 2;
 	
@@ -29,8 +29,9 @@ header {
 		justify-content: flex-start;
 		align-items: center;
 		width: 100%;
-		font-size: 2vw;
-		padding-left: 1vw;
+		font-size: 3rem;
+		padding-left: 1rem;
+		white-space:nowrap;
 		background-color: $baseBlueDarker;
 		color: #fff;
 		transition: all 1s ease;
