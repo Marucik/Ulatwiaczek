@@ -268,12 +268,24 @@ def sprawdzian_szczegoly(request, id):
         srednia_procentow_tab.append(suma['procenty'])
     srednia_punktow = float(sum(srednia_punktow_tab) / uczniowie_w_klasie.count())
     srednia_procentow = float(sum(srednia_procentow_tab) / uczniowie_w_klasie.count())
+    if srednia_procentow <= 19:
+        latwosc = 'Bardzo trudny'
+    elif srednia_procentow <= 49:
+        latwosc = 'Trudny'
+    elif srednia_procentow <= 69:
+        latwosc = 'Umiarkowanie trudny'
+    elif srednia_procentow <= 89:
+        latwosc = 'Łatwy'
+    else:
+        latwosc = 'Bardzo łatwy'
+
     return render(request, "main/sprawdzian/szczegoly.html", {
         "sprawdzian": sprawdzian,
         "uczniowie": uczniowie_w_klasie,
         "sumy_punktow": sumy_punktow,
         "srednia_punktow": round(srednia_punktow, 2),
         "srednia_procentow": round(srednia_procentow, 2),
+        "latwosc": latwosc,
     })
 
 
