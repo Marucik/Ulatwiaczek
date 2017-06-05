@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+{% block contentTitle %} Lista wszystkich dodanych sprawdzianów {% endblock %}
+{% block customStyles %}
+    #testy {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+  <div id="alert"></div>
+  {% if sprawdziany %}
+    <h3>Znaleziono {{ sprawdziany|length }} sprawdzian/y</h3>
+    <table class="table">
+        <tr>
+          <th>Z testu</th>
+          <th>Przedmiot</th>
+          <th>Temat</th>
+          <th>Klasa</th>
+          <th>Działania</th>
+        </tr>
+      {% for sprawdzian in sprawdziany %}
+        <tr>
+          <td>{{ sprawdzian.test.id }}</td>
+          <td>{{ sprawdzian.test.przedmiot }}</td>
+          <td>{{ sprawdzian.test.temat }}</td>
+          <td>{{ sprawdzian.klasa.nazwa }} {{ sprawdzian.klasa.skrot }}</td>
+          <td>
+              <a role="button" class="btn btn-primary" href="{% url 'main:sprawdzian_szczegoly' id=sprawdzian.id %}">Szczegóły</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <h3>Brak sprawdzianów do wyświetlenia</h3>
+  {% endif %}
+{% endblock %}

@@ -9,8 +9,9 @@ from django.http import (Http404, HttpResponse, HttpResponseNotFound,
                          HttpResponseRedirect, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect, render
 
-from main.models import Przedmiot, Sprawdzian, Test, Uczen, Klasa
+from main.models import Przedmiot, Sprawdzian, Test, Uczen, Klasa, Zadanie
 from main.forms import PrzedmiotAddForm, UczenAddForm, KlasaAddForm
+from decimal import *
 
 
 @login_required()
@@ -195,31 +196,140 @@ def test_edytuj(request, id):
 
 
 @login_required()
-def sprawdzian_dodaj(request, test_id=None, klasa_id=None):
-    if not test_id and not klasa_id:
+def sprawdzian_dodaj(request):
+    try:
+        test_id = int(request.POST.get('test_id'))
+    except:
         return redirect('main:test_lista')
     try:
+        klasa_id = int(request.POST.get('klasa_id'))
+    except:
+        klasy = Klasa.objects.filter(autor=request.user.id)
+        return render(request, 'main/sprawdzian/dodaj.html', {
+            'klasy': klasy,
+            'test_id': test_id,
+        })
+    try:
+        klasa = Klasa.objects.filter(autor=request.user.id).get(pk=klasa_id)
         test = Test.objects.filter(autor=request.user.id).get(pk=test_id)
-    except Test.DoesNotExist:
+    except:
         raise Http404
+
+    new_sprawdzian = Sprawdzian()
+    new_sprawdzian.test = test
+    new_sprawdzian.autor = request.user
+    new_sprawdzian.klasa = klasa
+    new_sprawdzian.ilosc_uczniow = Uczen.objects.filter(autor=request.user).filter(klasa=klasa_id).count()
+    new_sprawdzian.data_sprawdzianu = datetime.date.today()
+    new_sprawdzian.save()
 
     return render(request, 'main/sprawdzian/dodaj.html', {
         'test': test,
+        'klasa': klasa,
     })
-
-    return HttpResponse(test)
 
 
 @login_required()
 def sprawdzian_lista(request):
-    return HttpResponse("<h1>Lista sprawdzianów</h1>")
+    sprawdziany = Sprawdzian.objects.filter(autor=request.user.id)
+    return render(request, 'main/sprawdzian/index.html', {
+        'sprawdziany': sprawdziany,
+    })
 
 
 @login_required()
 def sprawdzian_szczegoly(request, id):
-    sprawdzian = get_object_or_404(Sprawdzian, pk=id)
+    try:
+        sprawdzian = Sprawdzian.objects.get(pk=id)
+    except:
+        raise Http404
+
+    uczniowie_w_klasie = Uczen.objects.filter(autor=request.user).filter(klasa=sprawdzian.klasa).order_by('nazwisko')
+    sumy_punktow = []
+    for i in range(0, uczniowie_w_klasie.count()):
+        zadania = Zadanie.objects.filter(autor=request.user).filter(sprawdzian=sprawdzian).filter(uczen=uczniowie_w_klasie[i])
+        punkty = []
+        context = {}
+        context['user'] = uczniowie_w_klasie[i]
+        for zadanie in zadania:
+            punkty.append(zadanie.punkty)
+        suma_punktow = sum(punkty)
+        context['punkty'] = suma_punktow
+        try:
+            procentowy_wynik = int((suma_punktow / sprawdzian.test.maks_ilosc_punktow) * 100)
+        except:
+            procentowy_wynik = 0
+        context['procenty'] = procentowy_wynik
+        sumy_punktow.append(context)
+    srednia_punktow_tab = []
+    srednia_procentow_tab = []
+    for suma in sumy_punktow:
+        srednia_punktow_tab.append(suma['punkty'])
+        srednia_procentow_tab.append(suma['procenty'])
+    srednia_punktow = float(sum(srednia_punktow_tab) / uczniowie_w_klasie.count())
+    srednia_procentow = float(sum(srednia_procentow_tab) / uczniowie_w_klasie.count())
     return render(request, "main/sprawdzian/szczegoly.html", {
         "sprawdzian": sprawdzian,
+        "uczniowie": uczniowie_w_klasie,
+        "sumy_punktow": sumy_punktow,
+        "srednia_punktow": round(srednia_punktow, 2),
+        "srednia_procentow": round(srednia_procentow, 2),
+    })
+
+
+@login_required()
+def sprawdzian_uczen(request, id, uczen_id):
+    try:
+        sprawdzian = Sprawdzian.objects.filter(autor=request.user).get(pk=id)
+        uczen = Uczen.objects.filter(autor=request.user).get(pk=uczen_id)
+        zadania = Zadanie.objects.filter(autor=request.user).filter(sprawdzian=sprawdzian).filter(uczen=uczen)
+    except:
+        raise Http404
+    punkty = []
+    for zadanie in zadania:
+        punkty.append(zadanie.punkty)
+    suma_punktow = sum(punkty)
+    punkty_testu = sprawdzian.test.maks_ilosc_punktow
+    procentowy_wynik = int((suma_punktow / punkty_testu) * 100)
+    return render(request, 'main/sprawdzian/uczen.html', {
+        'sprawdzian': sprawdzian,
+        'zadania': zadania,
+        'uczen': uczen,
+        'suma_punktow': suma_punktow,
+        'procentowy_wynik': procentowy_wynik,
+    })
+
+
+@login_required()
+def sprawdzian_uczen_edytuj(request, id, uczen_id):
+    try:
+        sprawdzian = Sprawdzian.objects.filter(autor=request.user).get(pk=id)
+    except:
+        raise Http404
+    try:
+        uczen = Uczen.objects.filter(autor=request.user).get(pk=uczen_id)
+    except:
+        raise Http404
+    if request.method == 'POST':
+        ilosc_zadan = sprawdzian.test.ilosc_zadan
+        for i in range(0, int(ilosc_zadan)):
+            context = {}
+            punkty_za_zadanie = request.POST.get('zad' + str(i + 1))
+            punkty_za_zadanie = float('0' + str(punkty_za_zadanie))
+            try:
+                zadanie = Zadanie.objects.filter(autor=request.user).filter(sprawdzian=sprawdzian).filter(uczen=uczen).get(numer=i + 1)
+            except:
+                zadanie = Zadanie()
+                zadanie.autor = request.user
+                zadanie.sprawdzian = sprawdzian
+                zadanie.uczen = uczen
+                zadanie.numer = i + 1
+            zadanie.punkty = punkty_za_zadanie
+            zadanie.save()
+    return render(request, 'main/sprawdzian/uczen_edytuj.html', {
+        'sprawdzian': sprawdzian,
+        'uczen': uczen,
+        'ilosc_zadan': range(sprawdzian.test.ilosc_zadan),
     })
 
 

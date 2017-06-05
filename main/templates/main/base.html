@@ -42,8 +42,8 @@
               <span class="rozwin"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
             </a>
             <ol>
-              <li id="sprawdzianyDodaj"><a href="#"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li>
-              <li id="sprawdzianyLista"><a href="#"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li>
+              <li id="sprawdzianyDodaj"><a href="{% url 'main:sprawdzian_dodaj' %}"><span class="ikona"><i class="fa fa-plus" aria-hidden="true"></i></span>Dodaj</a></li>
+              <li id="sprawdzianyLista"><a href="{% url 'main:sprawdzian_lista' %}"><span class="ikona"><i class="fa fa-list" aria-hidden="true"></i></span>Lista</a></li>
             </ol>
           </li>
           <li id="przedmioty">
@@ -85,7 +85,7 @@
         </footer>-->
       </nav>
       <div class="content">
-        <div class="title">{% block contentTitle %}Tekst tekścik{% endblock %}</div>
+        <div class="title">{% block contentTitle %}{% endblock %}</div>
         <div class="display">{% block content %} content {% endblock %}</div>
       </div>
     </main>

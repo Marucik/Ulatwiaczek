@@ -33,7 +33,12 @@
             <a role="button" href="{% url 'main:test_szczegoly' id=test.id %}" class="btn btn-info">Szczegóły</a>
             <a role="button" href="{% url 'main:test_edytuj' id=test.id %}" class="btn btn-success">Edytuj</a>
             <a role="button" href="{% url 'main:test_usun' id=test.id %}" class="btn btn-danger btn-delete" data-ajax-role="deleteTest">Usuń</a>
-            <a role="button" href="{% url 'main:sprawdzian_dodaj' test_id=test.id %}" class="btn btn-warning">Utwórz sprawdzian</a>
+            <!--<a role="button" href="{% url 'main:sprawdzian_dodaj' %}" class="btn btn-warning">Utwórz sprawdzian</a>-->
+            <form action="{% url 'main:sprawdzian_dodaj' %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="test_id" value="{{ test.id }}">
+              <input type="submit" class="btn btn-warning" value="Utwórz sprawdzian">
+            </form>
           </td>
         </tr>
       {% endfor %}

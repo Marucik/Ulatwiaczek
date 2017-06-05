@@ -12,11 +12,10 @@ urlpatterns = [
 
     url(r'sprawdzian/$', views.sprawdzian_lista, name='sprawdzian_lista'),
     url(r'sprawdzian/dodaj/$', views.sprawdzian_dodaj, name='sprawdzian_dodaj'),
-    url(r'sprawdzian/dodaj/(?P<test_id>[0-9]+)/$', views.sprawdzian_dodaj, name='sprawdzian_dodaj'),
-    url(r'sprawdzian/dodaj/(?P<test_id>[0-9]+)/(?P<klasa_id>[0-9]+)/$', views.sprawdzian_dodaj, name='sprawdzian_dodaj'),
     url(r'sprawdzian/(?P<id>[0-9]+)/$', views.sprawdzian_szczegoly, name='sprawdzian_szczegoly'),
     url(r'sprawdzian/(?P<id>[0-9]+)/usun/$', views.sprawdzian_usun, name='sprawdzian_usun'),
-    url(r'sprawdzian/(?P<id>[0-9]+)/(?P<uczen_id>[0-9]+)/edytuj$', views.sprawdzian_usun, name='sprawdzian_usun'),
+    url(r'sprawdzian/(?P<id>[0-9]+)/(?P<uczen_id>[0-9]+)/$', views.sprawdzian_uczen, name='sprawdzian_uczen'),
+    url(r'sprawdzian/(?P<id>[0-9]+)/(?P<uczen_id>[0-9]+)/edytuj$', views.sprawdzian_uczen_edytuj, name='sprawdzian_uczen_edytuj'),
     url(r'sprawdzian/(?P<id>[0-9]+)/edytuj/$', views.sprawdzian_edytuj, name='sprawdzian_edytuj'),
 
     url(r'przedmiot/$', views.przedmiot_lista, name='przedmiot_lista'),

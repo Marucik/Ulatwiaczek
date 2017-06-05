@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date
 
 
+
 class Przedmiot(models.Model):
     nazwa = models.CharField(max_length=50)
     skrot = models.CharField(max_length=10)
@@ -71,6 +72,7 @@ class Uczen(models.Model):
 class Sprawdzian(models.Model):
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    klasa = models.ForeignKey(Klasa, on_delete=models.CASCADE, null=False, default=False)
     ilosc_uczniow = models.IntegerField()
     data_sprawdzianu = models.DateField()
     data_dodania = models.DateField(default=date.today)
@@ -87,13 +89,15 @@ class Sprawdzian(models.Model):
 
 class Zadanie(models.Model):
     sprawdzian = models.ForeignKey(Sprawdzian, on_delete=models.CASCADE)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, default=False)
+    uczen = models.ForeignKey(Uczen, on_delete=models.CASCADE, default=False)
     numer = models.IntegerField()
-    ilosc_punktow_uczniow = models.DecimalField(max_digits=5, decimal_places=2)
-    maks_ilosc_punktow = models.IntegerField()
+    #punkty = models.DecimalField(max_digits=5, decimal_places=2)
+    punkty = models.FloatField()
 
     class Meta:
         db_table = 'Zadanie'
         verbose_name_plural = 'Zadania'
 
     def __str__(self):
-        return str(self.sprawdzian) + ' zadanie numer ' + str(self.numer)
+        return str(self.sprawdzian) + ' zadanie numer ' + str(self.numer) + ' punktow ' + str(self.punkty)
