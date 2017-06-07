@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,7 +27,7 @@ if DEBUG:
 else:
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = ['ulatwiaczek.herokuapp.com/']
+ALLOWED_HOSTS = ['https://ulatwiaczek.herokuapp.com/']
 
 
 # Application definition
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ulatwiaczek.urls'
@@ -135,3 +137,5 @@ STATICFILES_DIRS = (
 LOGIN_URL = '/konto/zaloguj/'
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
