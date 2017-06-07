@@ -33,11 +33,12 @@
     5. Następnie instalujemy Python'ową paczkę, która zawiera między innymi [Django](https://www.djangoproject.com/ "Strona Django"), na którym oparty jest nasz projekt.</br>
     Paczkę instalujemy poleceniem `pip install -r requirements.txt`. Po skończeniu pobierania sprawdzamy czy Django zainstalował się poprawnie poleceniem `python -m django --version`</br></br>
 		![Sprawdzanie wersji Django](http://i.imgur.com/yDD5C37.png)
-    6. Teraz instalujemy [Gulp](http://gulpjs.com/ "Strana Gulp'a")'a i potrzebne do jego działania moduły.</br>
+    6. Teraz instalujemy [Gulp](http://gulpjs.com/ "Strona Gulp'a")'a i potrzebne do jego działania moduły.</br>
   	Będąc w głównym folderze projektu wpisujemy w konsolę: `npm install`. NodePackageManager automatycznie zainstaluje za nas potrzebne moduły które są zawarde w pliku `package.json`.
     7. Po instalacji modułów `npm` w konsolę wpisujemy komendę: `gulp css:compile`.</br>
   	Powinniśmy ujrzeć taki widok:</br>      
         ![Kompilowanie plików scss](http://i.imgur.com/dRAfQxz.png)
+    8. W pliku ulatwiaczek/setting.py zmienną `DEBUG` zmieniamy na `True`
 4. Uruchomienie serwera i dodawanie danych:</br>
 Po wykonaniu poprzednich kroków, wreszcie możemy uruchomić naszą aplikację na lokalnym serwerze! Żeby to zrobić, wykonujemy następujące kroki:
   	1. W konsoli [w której mamy uruchomione wirtualne środowisko!] otwartej w głównym folderze projektu (poznamy go po pliku `manage.py`) wpisujemy komendę: `python manage.py runserver`</br>
