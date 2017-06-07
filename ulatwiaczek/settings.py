@@ -19,10 +19,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+if DEBUG
+    SECRET_KEY = 'x@63@jp1zqe^v*yhv9erx-ife$o8pwb!^q)8g&3&mm=zld1u_$'
+else 
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 
@@ -119,11 +121,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATICFILES_DIRS = [
-    'ulatwiaczek/static/',
-    os.path.join(BASE_DIR, "static"),
-]
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    'ulatwiaczek/static/',
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
 LOGIN_URL = '/konto/zaloguj/'
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
