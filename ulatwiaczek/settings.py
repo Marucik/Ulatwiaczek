@@ -28,7 +28,7 @@ if DEBUG:
 else:
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = ['https://ulatwiaczek.herokuapp.com/']
+ALLOWED_HOSTS = ['ulatwiaczek.herokuapp.com', 'localhost']
 
 
 # Application definition
