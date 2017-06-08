@@ -28,7 +28,7 @@ if DEBUG:
 else:
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = ['ulatwiaczek.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -141,3 +141,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
