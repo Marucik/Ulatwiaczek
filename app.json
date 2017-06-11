@@ -1,0 +1,17 @@
+{
+  "name": "ulatwiaczek",
+  "description": "Aplikacja licząca łatwość zadań",
+  "keywords": [
+    "Python",
+    "Django"
+  ],
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "env": {
+    "SECRET_KEY": "REDACTED"
+  },
+  "scripts": {
+    "postdeploy": "python manage.py migrate"
+  }
+}

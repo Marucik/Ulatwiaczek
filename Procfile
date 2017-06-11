@@ -1,1 +1,1 @@
-web: gunicorn ulatwiaczek.wsgi --log-file -
+web: gunicorn ulatwiaczek.wsgi:application --log-file -

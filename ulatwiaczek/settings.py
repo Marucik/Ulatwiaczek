@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
-import dj_database_url
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,15 +19,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-DEBUG = False
+DEBUG = True
 
-if DEBUG:
-    SECRET_KEY = 'x@63@jp1zqe^v*yhv9erx-ife$o8pwb!^q)8g&3&mm=zld1u_$'
-else:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = 'x@63@jp1zqe^v*yhv9erx-ife$o8pwb!^q)8g&3&mm=zld1u_$'
 
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'vagrant',
+    '.example.com',
+    '.herokuapp.com',
+    ]
+
+if 'ALLOWED_HOSTS' in os.environ:
+    for host in os.environ['ALLOWED_HOSTS'].split(" "):
+        host = host.strip()
+        if host:
+            ALLOWED_HOSTS.append(host)
 
 # Application definition
 
@@ -47,13 +55,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ulatwiaczek.urls'
@@ -80,12 +88,29 @@ WSGI_APPLICATION = 'ulatwiaczek.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if "DATABASE_URL" in os.environ:
+    # Do not read it here, it would be visible in debug
+    # find HIDDEN_SETTINGS to see what is cleansed by default
+    # DATABASE_URL = os.environ['DATABASE_URL']
+    import dj_database_url
+
+    DATABASES = {
+        "default": dj_database_url.config()
     }
-}
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+    DATABASES['default']['TEST'] = {'NAME': os.environ.get("DATABASE_TEST_NAME", None)}
+    DATABASES['default']['OPTIONS'] = {
+        'options': '-c search_path=public,pg_catalog'
+    }
+else:
+    # Use local sqlite3 database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
 
 
 # Password validation
@@ -125,21 +150,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    'ulatwiaczek/static/',
-    os.path.join(PROJECT_ROOT, 'static'),
-)
 
 LOGIN_URL = '/konto/zaloguj/'
-
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
