@@ -31,7 +31,7 @@ ALLOWED_HOSTS = [
     'vagrant',
     '.example.com',
     '.herokuapp.com',
-    ]
+]
 
 if 'ALLOWED_HOSTS' in os.environ:
     for host in os.environ['ALLOWED_HOSTS'].split(" "):
@@ -151,13 +151,11 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/static/',
+]
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Extra places for collectstatic to find static files.
-
-STATICFILES_DIRS = (
-    '/ulatwiaczek/static/',
-    os.path.join(PROJECT_ROOT, 'static'),
-)
 LOGIN_URL = '/konto/zaloguj/'
