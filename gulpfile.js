@@ -16,10 +16,10 @@ gulp.task('sass', function () {
       openbrace: 'end-of-line',
       autosemicolon: true
     }))
-    .pipe(gulp.dest('ulatwiaczek/static/css'))
+    .pipe(gulp.dest('home/static/home/css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('ulatwiaczek/static/css'));
+    .pipe(gulp.dest('home/static/home/css'));
 });
 gulp.task('bootstrap-v4-dev', function () {
   return gulp.src('./sources/style/bootstrap-v4-dev/scss/bootstrap.scss')
@@ -30,10 +30,10 @@ gulp.task('bootstrap-v4-dev', function () {
       openbrace: 'end-of-line',
       autosemicolon: true
     }))
-    .pipe(gulp.dest('ulatwiaczek/static/css'))
+    .pipe(gulp.dest('home/static/home/css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('ulatwiaczek/static/css'));
+    .pipe(gulp.dest('home/static/home/css'));
 });
 gulp.task('font-awesome', function () {
   return gulp.src('sources/style/font-awesome.scss')
@@ -44,10 +44,10 @@ gulp.task('font-awesome', function () {
       openbrace: 'end-of-line',
       autosemicolon: true
     }))
-    .pipe(gulp.dest('ulatwiaczek/static/css'))
+    .pipe(gulp.dest('home/static/home/css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('ulatwiaczek/static/css'));
+    .pipe(gulp.dest('home/static/home/css'));
 });
 gulp.task('sass:user', function () {
   return gulp.src('sources/style/user.scss')
@@ -58,10 +58,10 @@ gulp.task('sass:user', function () {
       openbrace: 'end-of-line',
       autosemicolon: true
     }))
-    .pipe(gulp.dest('ulatwiaczek/static/css'))
+    .pipe(gulp.dest('home/static/home/css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('ulatwiaczek/static/css'));
+    .pipe(gulp.dest('home/static/home/css'));
 });
 gulp.task('sass:watch', function () {
   gulp.watch('sources/style/*.scss',['sass', 'sass:user']);
@@ -70,7 +70,7 @@ gulp.task('sass:watch', function () {
 
 gulp.task('fonts', function() {
   return gulp.src('node_modules/font-awesome/fonts/*')
-  .pipe(gulp.dest('main/static/fonts'))
+  .pipe(gulp.dest('home/static/home/fonts'))
 });
 
 gulp.task('css:compile', ['sass', 'sass:user', 'font-awesome', 'bootstrap-v4-dev'], function () {
