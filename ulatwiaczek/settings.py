@@ -31,7 +31,7 @@ ALLOWED_HOSTS = [
     'vagrant',
     '.example.com',
     '.herokuapp.com',
-    ]
+]
 
 if 'ALLOWED_HOSTS' in os.environ:
     for host in os.environ['ALLOWED_HOSTS'].split(" "):
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'home.apps.HomeConfig',
@@ -149,15 +150,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Extra places for collectstatic to find static files.
-
-STATICFILES_DIRS = (
-    '/ulatwiaczek/static/',
-    os.path.join(PROJECT_ROOT, 'static'),
-)
 LOGIN_URL = '/konto/zaloguj/'
