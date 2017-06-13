@@ -4,7 +4,7 @@
 {% block title %}Ułatwiaczek - logowanie{% endblock %}
 
 {% block content %}
-  <img src="{% static 'images/napis.png' %}" alt="">
+  <img src="{% static 'home/images/napis.png' %}" alt="">
   <form class="login" method="post" action="{% url 'users:login' %}">
     {% csrf_token %}
     {% if messages %}
