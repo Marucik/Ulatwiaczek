@@ -4,7 +4,6 @@ __pycache__/
 main/migrations/
 node_modules/
 !node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss
-*.css
 virtualenv/
 .vscode/
 
