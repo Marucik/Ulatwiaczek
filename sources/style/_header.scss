@@ -1,0 +1,54 @@
+header {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	height: $headerHeight;
+	width: 100%;
+	z-index: 2;
+	
+
+	.logo {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: $navWidth;
+		flex-shrink: 0;
+		background-color: $baseBlue;
+		transition: all 1s ease;
+
+		img {
+			align-self: center;
+			max-width: 100%;
+			max-height: 90%;
+		}
+	}
+
+	.message {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		width: 100%;
+		font-size: 3rem;
+		padding-left: 1rem;
+		white-space:nowrap;
+		background-color: $baseBlueDarker;
+		color: #fff;
+		transition: all 1s ease;
+	}
+}
+
+@media screen and (max-width: 1001px) {
+  header {
+	  
+	.logo {
+		width: 100%;
+		transition: all 1s ease;
+	}
+
+	.message {
+		width: 0px;
+		transition: all 1s ease;
+	}
+  }
+}

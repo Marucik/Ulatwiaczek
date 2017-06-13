@@ -1,0 +1,49 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %} Szczegóły sprawdzianu dla ucznia {% endblock %}
+
+{% block content %}
+
+    {% if sprawdzian %}
+        <span>ID: </span> <strong>{{sprawdzian.test.id}}</strong> <br>
+        <span>Temat: </span><strong>{{sprawdzian.test.temat}}</strong> <br>
+        <span>Przedmiot: </span> <strong>{{sprawdzian.test.przedmiot}}</strong> <br>
+        <span>Ilość zadań: </span><strong>{{sprawdzian.test.ilosc_zadan}}</strong> <br>
+        <span>Maksymalna ilość punktów: </span><strong>{{sprawdzian.test.maks_ilosc_punktow}}</strong> <br>
+        <span>Dodano: </span> <strong>{{sprawdzian.test.data_dodania}}</strong> <br>
+        <span>Edytowano: </span> <strong>{{sprawdzian.test.data_edytowania}}</strong> <br>
+        <span>Uczeń: </span> <strong>{{uczen.imie}} {{uczen.nazwisko}}</strong> <br>
+        <h1>Procentowy wynik: {{ procentowy_wynik }}%</h1>
+        <a href="{% url 'main:sprawdzian_uczen_edytuj' id=sprawdzian.id uczen_id=uczen.id %}">Edytuj zadania</a>
+        <table class="table table-striped table-hovered">
+            <thead>
+                <tr>
+                    <th>Zadanie</th>
+                    <th>Punkty</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for zadanie in zadania %}
+            <tr>
+                <td>
+                    {{forloop.counter}}
+                </td>
+                <td>
+                    {% if zadanie.punkty <= 0 %} - {% else %} {{zadanie.punkty}} {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <th>Punkty</th>
+                    <th>{{ suma_punktow }}</th>
+                </tr>
+            </tfooter>
+        </table>
+
+    {% else %}
+        <h2>Nie znaleziono</h2>
+    {% endif %}
+
+{% endblock %}

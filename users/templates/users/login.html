@@ -1,0 +1,20 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}Ułatwiaczek - logowanie{% endblock %}
+
+{% block content %}
+  <img src="{% static 'home/images/napis.png' %}" alt="">
+  <form class="login" method="post" action="{% url 'users:login' %}">
+    {% csrf_token %}
+    {% if messages %}
+    <div class="alert alert-success"><strong>Wylogowano</strong> pomyślnie!</div>
+    {% endif %}
+    {% if loginError == True %}
+    <div class="alert alert-danger"><strong>Nie znaleziono</strong> użytkownika lub niepoprawne dane!</div>
+    {% endif %}
+    <input type="text" name="username" placeholder="Login:" required autofocus>
+    <input type="password" name="password" placeholder="Hasło:" required>
+    <input class="button" type="submit" value="Zaloguj">
+  </form>
+{% endblock %}

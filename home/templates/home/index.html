@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ułatwiaczek - logowanie</title>
+  <link rel="stylesheet" href="{% static 'home/css/home.min.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/font-awesome.min.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Witamy w Ułatwiaczku!</h1>
+    <ul class="buttons_wrapper">
+      <li class="button"><a href="{% url 'users:register' %}">Rejestracja</a></li>
+      <li class="button"><a href="{% url 'users:login' %}">Logowanie</a></li>
+      <li class="button"><a href="{% url 'home:informacje' %}">Informacje</a></li>
+    </ul>
+  </div>
+</body>
+</html>

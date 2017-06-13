@@ -1,0 +1,33 @@
+{% extends "main/base.html" %}
+{% block contentTitle %} Lista wszystkich dodanych klas {% endblock %}
+{% block customStyles %}
+    #klasy {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+  <div id="alert"></div>
+  {% if klasy %}
+    <h3>Znaleziono {{ klasy|length }} klas</h3>
+    <table class="table">
+        <tr>
+          <th>Numer</th>
+          <th>Nazwa klasy</th>
+          <th>Skrót</th>
+          <th>Działania</th>
+        </tr>
+      {% for klasa in klasy %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ klasa.nazwa }}</td>
+          <td>{{ klasa.skrot }}</td>
+          <td>
+              <a href="{% url 'main:klasa_uczniowie' klasa_id=klasa.id %}" class="btn btn-primary" role="button">Uczniowie w klasie</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <h3>Brak klas do wyświetlenia</h3>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn ulatwiaczek.wsgi:application --log-file -

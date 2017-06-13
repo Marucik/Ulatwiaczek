@@ -1,0 +1,42 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %} Dodawanie sprawdzianu {% endblock %}
+{% block contentTitle %} Dodaj sobie sprawdzian {% endblock %}
+{% block customStyles %}
+    #sprawdziany {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+    {% if test %}
+
+    {% endif %}
+
+    {% if add_klasa_error %}
+        <h2 style="color: red"> Coś poszedło nie tak! </h2>
+    {% endif %}
+    {% if test and klasa %}
+    <span>ID: </span> <strong>{{test.id}}</strong> <br>
+    <span>Temat: </span><strong>{{test.temat}}</strong> <br>
+    <span>Przedmiot: </span> <strong>{{test.przedmiot}}</strong> <br>
+    <span>Ilość zadań: </span><strong>{{test.ilosc_zadan}}</strong> <br>
+    <span>Maksymalna ilość punktów: </span><strong>{{test.maks_ilosc_punktow}}</strong> <br>
+    <span>Dodano: </span> <strong>{{test.data_dodania}}</strong> <br>
+    <span>Edytowano: </span> <strong>{{test.data_edytowania}}</strong> <br>
+
+    <span>ID klasy: </span> <strong>{{klasa.id}}</strong> <br>
+    <span>Nazwa klasy: </span> <strong>{{klasa.nazwa}}</strong> <br>
+    <span>Skrót klasy: </span> <strong>{{klasa.skrot}}</strong> <br>
+    {% else %}
+    <form class="form-inline" action="{% url 'main:sprawdzian_dodaj' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="test_id" value="{{ test_id }}">
+        <select name="klasa_id" class="form-control">
+        {% for klasa in klasy %}
+        <option value="{{ klasa.id }}">{{ klasa.skrot }} | {{ klasa.nazwa }}</option>
+        {% endfor %}
+        </select>
+        <input class="btn btn-primary" type="submit" value="Utwórz sprawdzian">
+    </form>
+    {% endif %}
+{% endblock %}

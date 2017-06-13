@@ -1,0 +1,123 @@
+.menuButton {
+  display: none;
+  position: absolute;
+  flex-shrink: 0;
+  top: 0;
+  left: 0;
+  width: 9vh;
+  height: 9vh;
+  z-index: 3;
+}
+
+nav {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  height: 100%;
+  width: $navWidth;
+  flex-shrink: 0;
+  background-color: $baseBlueLight;
+  transition: all .7s ease;
+  z-index: 1;
+  ul {
+    width: 100%;
+    padding: 1rem 0;
+    margin: 0;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .showDropdown {
+    display: block;
+  }
+  ol {
+    display: none;
+    li {
+      background-color: $baseBlueDark;
+      padding-left: 20px;
+      &:hover {
+        background-color: $baseBlueDarker;
+      }
+      a {
+        padding: 0.5rem 0 0.5rem 1rem;
+      }
+    }
+    li:not(:last-child) {
+      border-bottom: 1px solid $baseBlueDarker;
+    }
+  }
+  li {
+    width: 100%;
+    &:hover {
+      background-color: $baseBlue;
+    }
+
+    a {
+      display: block;
+      padding: 1.5rem 0 1.5rem 1rem;
+      text-decoration: none;
+      font-size: 1.5rem;
+      color: #fff;
+      &:link,
+      &:active {
+        color: #fff;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+      span.ikona {
+        padding-right: 0.5rem;
+      }
+      span.rozwin {
+        padding-left: 0.5rem;
+      }
+    }
+  }
+
+  li.logout {
+    &:hover {
+      background-color: $red;
+    }
+  }
+
+//   footer {
+//     width: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     img {
+//       width: 90%;
+//     }
+//   }
+}
+
+@media screen and (max-width: 1470px) {
+  nav {
+    // display: none;
+    position: absolute;
+    left: -$navWidth;
+
+    ul {
+      padding-bottom: 5rem;
+    }
+  }
+
+ 
+
+  .menuButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.revealNav {
+  // display: flex;
+  width: $navWidth;
+  left: 0;
+  top: $headerHeight;
+  box-shadow: 8px -2px 42px 5px rgba(0,0,0,0.75);
+
+}

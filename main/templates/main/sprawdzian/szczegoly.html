@@ -1,0 +1,54 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %} Szczegóły sprawdzianu {% endblock %}
+
+{% block content %}
+
+    {% if sprawdzian %}
+        <span>ID: </span> <strong>{{sprawdzian.test.id}}</strong> <br>
+        <span>Temat: </span><strong>{{sprawdzian.test.temat}}</strong> <br>
+        <span>Przedmiot: </span> <strong>{{sprawdzian.test.przedmiot}}</strong> <br>
+        <span>Ilość zadań: </span><strong>{{sprawdzian.test.ilosc_zadan}}</strong> <br>
+        <span>Maksymalna ilość punktów: </span><strong>{{sprawdzian.test.maks_ilosc_punktow}}</strong> <br>
+        <span>Dodano: </span> <strong>{{sprawdzian.test.data_dodania}}</strong> <br>
+        <span>Edytowano: </span> <strong>{{sprawdzian.test.data_edytowania}}</strong> <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Numer</th>
+                    <th>Punkty</th>
+                    <th>Procentowy wynik</th>
+                    <th>Nazwisko i imie</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for uczen in uczniowie %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    {% for punkty in sumy_punktow %}
+                        {% if punkty.user == uczen %}
+                            <td>{{ punkty.punkty }}</td>
+                            <td>{{ punkty.procenty }}%</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td>
+                        <a href="{% url 'main:sprawdzian_uczen' id=sprawdzian.id uczen_id=uczen.id %}">{{ uczen.nazwisko }} {{ uczen.imie }}</a>
+                    </td>
+                </tr>
+        {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <th>Średnie</th>
+                    <th>{{ srednia_punktow }}</th>
+                    <th>{{ srednia_procentow }}</th>
+                    <th></th>
+                </tr>
+            </tfooter>
+        </table>
+        <h2>Status sprawdzianu: <strong>{{ latwosc }}</strong></h2>
+    {% else %}
+        <h2>Nie znaleziono</h2>
+    {% endif %}
+
+{% endblock %}

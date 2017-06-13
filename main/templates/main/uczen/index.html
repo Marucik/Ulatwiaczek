@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+{% block contentTitle %} Lista wszystkich dodanych uczniów {% endblock %}
+{% block customStyles %}
+    #uczniowie {
+        border-right: 6px solid #e74c3c;
+    }
+{% endblock %}
+{% block content %}
+  <div id="alert"></div>
+  {% if uczniowie %}
+    <h3>Znaleziono {{ uczniowie|length }} uczniów</h3>
+    <table class="table">
+        <tr>
+          <th>Numer</th>
+          <th>Imie</th>
+          <th>Nazwisko</th>
+          <th>Klasa</th>
+        </tr>
+      {% for uczen in uczniowie %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ uczen.imie }}</td>
+          <td>{{ uczen.nazwisko }}</td>
+          {% if not uczen.klasa %}
+          <td>Brak</td>
+          {% else %}
+          <td>{{ uczen.klasa.skrot }} | {{ uczen.klasa.nazwa }}</td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <h3>Brak uczniów do wyświetlenia</h3>
+  {% endif %}
+{% endblock %}

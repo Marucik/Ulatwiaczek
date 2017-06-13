@@ -1,0 +1,31 @@
+.content {
+  flex-basis: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #fff;
+  padding-bottom: 6rem;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+    background-color: lightgray;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $baseBlueDarker;
+  }
+  .title {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .display {
+    margin-bottom: 1rem;
+    padding-top: 0.6rem;
+  }
+  @import "tables";
+}
