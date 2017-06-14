@@ -9,14 +9,30 @@ from django.http import (Http404, HttpResponse, HttpResponseNotFound,
                          HttpResponseRedirect, JsonResponse)
 from django.shortcuts import get_object_or_404, redirect, render
 
-from main.models import Przedmiot, Sprawdzian, Test, Uczen, Klasa, Zadanie
+from main.models import Test, Sprawdzian, Przedmiot, Nauczyciel, Klasa, Uczen, Sprawdzian, Zadanie
+
 from main.forms import PrzedmiotAddForm, UczenAddForm, KlasaAddForm
 from decimal import *
 
 
 @login_required()
 def index(request):
-    return render(request, "main/base.html")
+    iloscPrzedmiotow = Przedmiot.objects.all().count()
+    iloscTestow = Test.objects.all().count()
+    iloscNauczycieli = Nauczyciel.objects.all().count()
+    iloscKlas = Klasa.objects.all().count()
+    iloscUczniow = Uczen.objects.all().count()
+    iloscSprawdzianow = Sprawdzian.objects.all().count()
+    iloscZadan = Zadanie.objects.all().count()
+    return render(request, 'main/base.html', {
+        'iloscTestow': iloscTestow,
+        'iloscPrzedmiotow': iloscPrzedmiotow,
+        'iloscNauczycieli': iloscNauczycieli,
+        'iloscKlas': iloscKlas,
+        'iloscUczniow': iloscUczniow,
+        'iloscSprawdzianow': iloscSprawdzianow,
+        'iloscZadan': iloscZadan,
+    })
 
 
 @login_required()

@@ -85,8 +85,21 @@
         </footer>-->
       </nav>
       <div class="content">
-        <div class="title">{% block contentTitle %}{% endblock %}</div>
-        <div class="display">{% block content %} content {% endblock %}</div>
+        <div class="title">{% block contentTitle %} Skorzystaj z menu po lewej stronie! {% endblock %}</div>
+        <div class="display">
+          {% block content %}            
+            <h1>W naszej bazie jest:</h1>
+            <ul>
+              <li>{{ iloscTestow }} testów,</li>
+              <li>{{ iloscSprawdzianow }} sprawdzianów,</li>
+              <li>{{ iloscNauczycieli }} nauczycieli,</li>
+              <li>{{ iloscPrzedmiotow }} przedmiotów,</li>
+              <li>{{ iloscUczniow }} uczniów,</li>
+              <li>{{ iloscKlas }} klas,</li>
+              <li>{{ iloscZadan }} zadań.</li>
+            </ul> 
+          {% endblock %}
+        </div>
       </div>
     </main>
   </div>
