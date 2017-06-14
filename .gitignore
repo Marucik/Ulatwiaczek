@@ -1,7 +1,6 @@
 __pycache__/
 *.pyc
 *.sqlite3
-main/migrations/
 node_modules/
 !node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss
 virtualenv/
