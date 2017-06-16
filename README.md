@@ -1,5 +1,7 @@
 # Ułatwiaczek </br>Bo ułatwia / jasne jak słońce! [ ͡° ͜ʖ ͡°]
 
+# Ułatwiaczek w internecie: [ulatwiaczek.herokuapp.com](https://ulatwiaczek.herokuapp.com/)
+
 ### Uruchamianie aplikacji na komputerze lokalnym:
 
 Żeby uruchomić Ułatwiaczka lokalnie, musimy wykonać następujące kroki:
