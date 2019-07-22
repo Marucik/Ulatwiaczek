@@ -1,4 +1,4 @@
-Django==1.10.5
+Django==1.11.22
 
 # Wymagane przez Heroku
 # Potrzebne dla obsługi PostgreSQL, plików statycznych oraz serwera HTTP
